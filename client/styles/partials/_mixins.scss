@@ -1,0 +1,55 @@
+$xxs: 320px;
+$xs: 580px;
+$sm: 767px;
+$md: 991px;
+$lg: 1199px;
+@mixin iphone4 {
+  @media (max-width: #{$iphone4}) {
+    @content;
+  }
+}
+
+@mixin xxs {
+  @media (max-width: #{$xxs}) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media (max-width: #{$xs}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: #{$sm}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: #{$md}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: #{$lg}) {
+    @content;
+  }
+}
+
+@mixin radial-gradient($size, $color1, $color2) {
+  background: radial-gradient($size, $color1, $color2);
+  background: -webkit-radial-gradient($size, $color1, $color2);
+  background: -moz-radial-gradient($size, $color1, $color2);
+  background: -o-radial-gradient($size, $color1, $color2);
+}
+
+@mixin transform($x) {
+  transform: $x;
+  -webkit-transform: $x;
+  -ms-transform: $x;
+  -o-transform: $x;
+  -moz-transform: $x;
+}

@@ -1,1 +1,257 @@
-@import 'normalize';
+// color variable names: 
+// $dark
+// $dark-v2
+// $background
+// $light-background
+// $med-background
+// $primary
+// $secondary-light
+// $secondary
+// $tertiary-light
+// $tertiary
+
+@import './partials/normalize';
+@import './partials/colors';
+@import './partials/typography';
+@import './partials/mixins';
+@import 'datepicker';
+
+main#app {
+  overflow: hidden;
+}
+
+body {
+  background-color: $background;
+  color: $dark;
+}
+
+.app-logo {
+  color: black;
+  background-color: white;
+  display: inline-block;
+  padding: 5px 5px 5px 40px;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    background: url(/rice.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    left: 5px;
+    top: 2px;
+  }
+}
+
+.app-logo_pizza {
+  color: black;
+  background-color: white;
+  display: inline-block;
+  padding: 5px 5px 5px 40px;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    background: url(/pizza.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 32px;
+    width: 32px;
+    left: 7px;
+    top: 0px;
+    transform: rotate(-255deg);
+  }
+}
+
+.main {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.mainContainer {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+
+
+.header {
+  background-color: $dark;
+  color: white;
+  position: relative;
+  &:before {
+    background-color: $dark;
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    right: 100%;
+  }
+  &:after {
+    background-color: $dark;
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 100%;
+  }
+  ul.navBar-list {
+    display: inline-block;
+  }
+  ul.navBar-list_right {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
+  li.navBar-link {
+    display: inline-block;
+    padding: 10px 20px;
+    a {
+      padding: 5px 10px;
+      border: 1px solid $dark;
+      &:hover {
+        border: 1px solid $primary;
+      }
+    }
+    a.activeLink {
+      color: $light-background;
+      background-color: $primary; 
+      border: 1px solid $primary;
+    }
+    a.navBar-login {
+      color: $light-background;
+      border: 1px solid $tertiary-light;
+    }
+    a.navBar-logout {
+      color: $light-background;
+      border: 1px solid $secondary-light;
+    }
+  }
+}
+
+// Inventory List
+
+.inventoryList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.inventoryItem {
+  width: 250px;
+  border-radius: 2px;
+  background-color: $light-background;
+  padding: 5px 10px;
+  margin: 10px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
+  @include xs {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+.inventoryItem-name {
+  text-transform: capitalize;
+  background-color: rgba(13, 17, 22, 0.05);
+  padding: 10px;
+}
+
+.inventoryItem-expiry {
+  font-size: 14px;
+}
+
+span.deleteItem {
+  cursor: pointer;
+  color: $secondary;
+}
+
+// MODAL
+
+// APPLY TO BODY WHEN MODAL OPEN
+// position:relative;
+// overflow: hidden;
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  background: $light-background;
+  padding: 0px 20px 20px 20px;
+  position: fixed;
+  max-width: 800px;
+  min-width: 250px;
+  height: 90%;
+  max-height: 400px;
+  min-height: 250px;
+}
+
+.modal-backDrop {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-inner {
+  height: calc(100% - (20px + 27px + 20px));
+  border: 1px solid $med-background;
+  border-radius: 2px;
+  overflow-Y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: red;
+}
+
+.ingredientList {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.ingredient {
+  background-color: inherit;
+  padding: 5px 5px;
+  border-bottom: 1px solid $med-background;
+}
+
+.ingredient-selected {
+  background-color: $tertiary-light;
+}
+
+// RECIPE LIST 
+.recipeList {
+  @extend .inventoryList;
+}
+.recipe {
+  @extend .inventoryItem;
+}
+
+// MEAL PLAN LIST
+
+.mealPlanList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.mealPlanDay {
+  @extend .inventoryItem;
+  h2 {
+    text-transform: capitalize;
+    background-color: rgba(13, 17, 22, 0.05);
+    padding: 10px;
+  }
+}
+
+

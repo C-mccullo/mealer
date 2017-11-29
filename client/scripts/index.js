@@ -1,7 +1,8 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import Router from "./router";
 
-// Replace this with your own components
-const Hello = () => <p>Hello, world!</p>;
-
-render(<Hello />, document.getElementById('app'));
+ReactDOM.render(
+  <Router />, 
+  document.getElementById('app')
+);

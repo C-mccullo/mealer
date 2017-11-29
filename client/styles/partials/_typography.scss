@@ -1,0 +1,29 @@
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab:600|Lobster');
+// @import url('https://fonts.googleapis.com/css?family=Dosis:300|Lobster');
+// @import url('https://fonts.googleapis.com/css?family=Lobster|Open+Sans');
+h1, h2 {
+  // font-family: 'Fredoka One', cursive;
+  font-family: 'Lobster', cursive;
+  letter-spacing: 2px;
+}
+
+h3, p, a, span {
+  font-family: 'Josefin Slab', serif;
+  // font-family: 'Open Sans', sans-serif;
+  // font-family: 'Dosis', sans-serif;
+
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  list-style-type: none ;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
