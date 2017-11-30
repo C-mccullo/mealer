@@ -6,7 +6,6 @@ import moment from "moment";
 class AddFoodForm extends Component {
   constructor(props) {
     super(props);
-    // This will eventually be split into 2 different forms: One to add new Ingredient to Ingredients Collection and one to add FoodItem to existing Ingredient.
     this.state = {
         name: "",
         quantity: "",
@@ -21,6 +20,8 @@ class AddFoodForm extends Component {
     this.addToNameState = this.addToNameState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleExpiry = this.handleExpiry.bind(this);
+    this.postFoodItem = this.postFoodItem.bind(this);
+    this.postNewIngredient = this.postNewIngredient.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.resetForm = this.resetForm.bind(this);
   }
@@ -35,10 +36,10 @@ class AddFoodForm extends Component {
       })
   }
 
-  addToNameState(e) {
-    console.log(e);
-    this.setState({ name: e });
-    this.searchIngredients(e);
+  addToNameState(name) {
+    console.log(name);
+    this.setState({ name: name });
+    this.searchIngredients(name);
   }
 
   handleChange(e) {
@@ -59,11 +60,16 @@ class AddFoodForm extends Component {
     this.setState(this.baseState)
   }
   // if name is not present in the options, than need to make different request to add ingredient
-  handleSubmit(e) {
-    e.preventDefault();
+  postNewIngredient() {
+    console.log("will post new ingredient");
+  }
+
+  postFoodItem() {
+    console.log("ingredient exists, will post foodItem")
     const foodItem = Object.assign({}, this.state);
     delete foodItem.pickerExpiry;
-    // console.log("body for post: ", foodItem);
+    delete foodItem.options;
+    delete foodItem.isLoading;
     fetch("/api/foods", {
       method: "POST",
       body: JSON.stringify(foodItem),
@@ -71,30 +77,40 @@ class AddFoodForm extends Component {
         "Content-type": "application/json",
       }
     })
-    .then(() => this.props.fetchFoods())
-    .then(()=> this.resetForm())
+      .then(() => this.props.fetchFoods())
+      .then(() => this.resetForm())
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.postFoodItem();
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={this.handleSubmit}>
         <div className="form-row">
           <h2>Add food to your inventory</h2>
-          <AsyncTypeahead labelKey={ option => `${option.name}` } 
+          <label className="form-label" htmlFor="ingredient">Ingredient</label>
+          <AsyncTypeahead className="form-input" labelKey={ option => `${option.name}` }
+            inputProps={{name: "ingredient" , required: true}} 
+            placeholder="Enter Ingredient Name"
             options={ this.state.options } 
             isLoading={ this.state.isLoading } 
             onSearch={ (query) => this.searchIngredients(query) }
             onInputChange={ (e) => this.addToNameState(e) }
           />
-          {/* <input onChange={this.handleChange} name="name" required type="text" placeholder="Enter Food Name" value={this.state.name} /> */}
-          <input onChange={this.handleChange} name="quantity" required type="number" min="1" placeholder="Enter the quantity" value={this.state.quantity} />
-          <input onChange={this.handleChange} name="portions" required type="number" min="1" placeholder="Enter the portion size for your food" value={this.state.portions} />
+          <label className="form-label" htmlFor="quantity">Quantity</label>
+          <input className="form-input" onChange={this.handleChange} name="quantity" required type="number" min="1" placeholder="Enter the quantity" value={this.state.quantity} />
+          <label className="form-label" htmlFor="portions">Portions Per Item</label>
+          <input className="form-input" onChange={this.handleChange} name="portions" required type="number" min="1" placeholder="Enter the portion size for your food" value={this.state.portions} />
         </div>
         <div className="form-row">
-          <DatePicker selected={this.state.pickerExpiry} onChange={this.handleExpiry} />
+          <label className="form-label" htmlFor="expiry">Expiry Date</label>
+          <DatePicker className="form-input" name="expiry" selected={this.state.pickerExpiry} onChange={this.handleExpiry} />
         </div>
         <div className="form-row">
-          <button>Add Food Item</button>
+          <button className="button-blue">Add Food Item</button>
         </div>
       </form>
     )

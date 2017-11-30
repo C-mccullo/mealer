@@ -5,6 +5,7 @@ const IngredientSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
+    lowercase: true,
     required: "Please enter a name for your food items"
   }
 });

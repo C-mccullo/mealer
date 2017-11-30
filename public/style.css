@@ -393,11 +393,24 @@ template {
 *, *:before, *:after {
   box-sizing: border-box; }
 
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }
+
 h1, h2 {
   font-family: 'Lobster', cursive;
   letter-spacing: 2px; }
 
-h3, p, a, span {
+h3, p, a, span, label {
   font-family: 'Josefin Slab', serif; }
 
 ul {
@@ -455,7 +468,7 @@ a {
     border-top-color: #aeaeae; }
 
 .react-datepicker-wrapper {
-  display: inline-block; }
+  display: block; }
 
 .react-datepicker {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -664,7 +677,7 @@ a {
 
 .react-datepicker__input-container {
   position: relative;
-  display: inline-block; }
+  display: block; }
 
 .react-datepicker__year-read-view,
 .react-datepicker__month-read-view {
@@ -809,12 +822,53 @@ a {
     .react-datepicker__portal .react-datepicker__navigation--next:hover {
       border-left-color: #b3b3b3; }
 
+ul.dropdown-menu, ul.rbt-menu, ul.dropdown-menu-justify {
+  display: block;
+  max-height: 300px;
+  width: 100%;
+  overflow: auto;
+  position: absolute;
+  left: 0px;
+  background: white;
+  margin: 6px auto 0px;
+  padding-left: 0px;
+  border: 1px solid; }
+  ul.dropdown-menu li, ul.rbt-menu li, ul.dropdown-menu-justify li {
+    padding: 0px; }
+    ul.dropdown-menu li:nth-of-type(even), ul.rbt-menu li:nth-of-type(even), ul.dropdown-menu-justify li:nth-of-type(even) {
+      background-color: #EFEDEB; }
+    ul.dropdown-menu li:hover, ul.rbt-menu li:hover, ul.dropdown-menu-justify li:hover {
+      background: #77c5f7; }
+    ul.dropdown-menu li a, ul.rbt-menu li a, ul.dropdown-menu-justify li a {
+      padding: 10px;
+      display: block; }
+
+.rbt-input-wrapper div:first-child {
+  display: block; }
+  .rbt-input-wrapper div:first-child div:first-child {
+    display: block;
+    width: 100%; }
+
+.rbt-input-wrapper input.rbt-input-main {
+  width: 100%; }
+
+mark.rbt-highlight-text {
+  background-color: #f19a8d; }
+
 main#app {
   overflow: hidden; }
 
 body {
   background-color: #E9E0D6;
   color: #0D1116; }
+
+.button-blue {
+  margin: 10px 0px;
+  padding: 10px 20px;
+  background-color: #77C5F7;
+  border-radius: 0px;
+  border: 1px solid #0D1116;
+  cursor: pointer; }
 
 .app-logo {
   color: black;
@@ -932,6 +986,23 @@ body {
 span.deleteItem {
   cursor: pointer;
   color: #E43F25; }
+
+form.form {
+  max-width: 375px;
+  background-color: #FBF9F7;
+  margin: 20px 0px;
+  padding: 30px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 2px; }
+  form.form .form-label {
+    padding-left: 0px; }
+  form.form .form-input {
+    width: 100%;
+    display: block;
+    margin: 5px 0px 10px;
+    padding: 5px;
+    border: 1px solid #0D1116;
+    background-color: #FBF9F7; }
 
 .modal {
   position: fixed;

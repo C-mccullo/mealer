@@ -15,6 +15,7 @@
 @import './partials/typography';
 @import './partials/mixins';
 @import 'datepicker';
+@import 'typeahead.scss';
 
 main#app {
   overflow: hidden;
@@ -23,6 +24,17 @@ main#app {
 body {
   background-color: $background;
   color: $dark;
+}
+
+// BUTTONS 
+
+.button-blue {
+  margin: 10px 0px;
+  padding: 10px 20px;
+  background-color: $tertiary-light;
+  border-radius: 0px;
+  border: 1px solid $dark;
+  cursor: pointer;
 }
 
 .app-logo {
@@ -168,9 +180,28 @@ span.deleteItem {
   color: $secondary;
 }
 
-// MODAL
+form.form {
+  max-width: 375px;
+  background-color: $light-background;
+  margin: 20px 0px; 
+  padding: 30px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 2px;
+  .form-label {
+    padding-left: 0px;
+  }
+  .form-input {
+    width: 100%;
+    display: block;
+    margin: 5px 0px 10px;
+    padding: 5px;
+    border: 1px solid $dark;
+    background-color: $light-background;
+  }
+}
 
-// APPLY TO BODY WHEN MODAL OPEN
+// MODAL
+// 👉 APPLY TO BODY WHEN MODAL OPEN
 // position:relative;
 // overflow: hidden;
 

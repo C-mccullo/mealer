@@ -2,7 +2,7 @@
 @import "datepicker-mixins.scss";
 
 .react-datepicker-wrapper {
-  display: inline-block;
+  display: block;
 }
 
 .react-datepicker {
@@ -316,7 +316,7 @@
 
 .react-datepicker__input-container {
   position: relative;
-  display: inline-block;
+  display: block;
 }
 
 .react-datepicker__year-read-view,

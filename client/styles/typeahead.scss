@@ -1,0 +1,42 @@
+ul.dropdown-menu, ul.rbt-menu, ul.dropdown-menu-justify {
+  display: block;
+  max-height: 300px;
+  width: 100%;
+  overflow: auto;
+  position: absolute;
+  left: 0px;
+  background: lighten($med-dark, 50%);
+  margin: 6px auto 0px;
+  padding-left: 0px;
+  border: 1px solid;
+  li {
+    padding: 0px;
+    &:nth-of-type(even) {
+      background-color: $med-dark;
+    }
+    &:hover {
+      background: darken($tertiary-light, 0%);
+    }
+    a {
+      padding: 10px;
+      display: block;
+    }
+  }
+}
+
+.rbt-input-wrapper {
+  div:first-child {
+    display: block;
+    div:first-child {
+      display: block;
+      width: 100%;
+    }
+  }
+  input.rbt-input-main {
+    width: 100%;
+  }
+}
+
+mark.rbt-highlight-text {
+  background-color: lighten($secondary-light, 10%);
+}

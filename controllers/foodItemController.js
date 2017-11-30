@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const FoodItem = require("../models/FoodItemModel");
+const Ingredient = require("../models/IngredientModel");
 
 exports.getFoods = (req, res) => {
   FoodItem.find().populate('ingredient').then((docs) => {
@@ -13,8 +14,8 @@ exports.getFoods = (req, res) => {
 
 exports.postFoods = (req, res) => {
   // post foodItems, if Ingredient with name is not found, create a new ingredient then add the ingredientID.
-  const foodModel = new FoodItem();
-  const foodItem = Object.assign(foodModel, req.body);
+  console.log("postfoods", req.body);
+  const foodItem = new FoodItem({ expiry: req.bodyexpiry, quantity: req.body.quantity, portions: req.body.portions, ingredient: req.body.ingredientID });
   foodItem.save()
     .then((doc) => {
       res.status(200).send(doc);
@@ -24,6 +25,24 @@ exports.postFoods = (req, res) => {
     });
 }
 
-exports.deleteFood = (req, res) => {
+// Add middleware to check foodItems being posted
+exports.checkFoods = (req, res, next) => {
+  const foodItem = req.body;
+  console.log(foodItem);
+  Ingredient.findOneAndUpdate({
+    name: foodItem.name.toLowerCase()
+  }, { name: foodItem.name.toLowerCase() },
+  {
+    upsert: true, 
+    new: true
+  })
+  .then(doc => {
+    req.body.ingredientID = doc._id;
+    next();
+  })
+    .catch(next);
+}
 
+exports.deleteFood = (req, res) => {
+// TODO MAKE DELETE FOOD CONTROLLER
 }

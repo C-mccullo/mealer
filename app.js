@@ -37,7 +37,10 @@ app.post("/api/ingredientList", ingredientController.postIngredient);
 // INVENTORY
 app.get("/api/foods", foodItemController.getFoods);
 
-app.post("/api/foods/", foodItemController.postFoods);
+app.post("/api/foods/", 
+  foodItemController.checkFoods, 
+  foodItemController.postFoods
+);
 
 app.delete("/api/foods/:id", foodItemController.deleteFood);
 

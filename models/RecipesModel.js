@@ -1,13 +1,22 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
+const RecipeIngredient = new mongoose.Schema({
+  ingredient: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Ingredient",
+    required: true,
+  },
+  portionSize: {
+    type: Number,
+    required: true
+  }
+})
+
 const RecipeSchema = new mongoose.Schema({
   name: String,
-  ingredients: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Ingredient'
-  }],
-})
+  ingredients: [RecipeIngredient]
+});
 
 // RecipeSchema.pre("save", AddIngredients);
 
