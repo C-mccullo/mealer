@@ -1,6 +1,6 @@
 import React from "react";
 import InventoryList from "./InventoryList";
-// import IngredientModalList from "./IngredientModalList";
+import RecipeIncrementer from "./RecipeIncrementer";
 
 const RecipeModal = (props) => {
   const isModalOpen = props.isModalOpen;
@@ -12,52 +12,36 @@ const RecipeModal = (props) => {
     }
   }
 
-  function toggleRecipe(recipe) {
-    const recipeArray = props.recipeArray;
-    if (recipeArray.includes(recipe)) {
-      console.log("remove this recipe: ", recipe);
-      props.removeRecipe(recipe);
-    } else {
-      props.addRecipe(recipe);
-    }
-  }
-
-  function recipeClass(recipe) {
-    if (props.recipeArray.includes(recipe)) {
-      return "ingredient ingredient-selected";
-    }
-    return "ingredient";
-  }
-
   return (
     <div>
       {
-        isModalOpen ? (
-          <div className="modal-container">
-            <div className="modal-backDrop" onClick={props.closeModal}></div>
-            <div className="modal">
-              <div className="modal-close" onClick={props.closeModal}>X</div>
-              <header className="modal-header">
-                <h2>Recipe List</h2>
-              </header>
-              <div className="modal-inner">
-                <ul className="ingredientList">
-                  {
-                    props.recipes.map((recipe) => {
-                      return (
-                        <li key={`recipe-${recipe._id}`}
-                          onClick={() => toggleRecipe(recipe)}
-                          className={recipeClass(recipe)}>
-                          {recipe.name}
-                        </li>
-                      )
-                    })
-                  }
-                </ul>
+      isModalOpen ? (
+        <div className="modal-container">
+          <div className="modal-backDrop" onClick={ props.closeModal }></div>
+          <div className="modal">
+            <button className="modal-close" onClick={ props.closeModal }>X</button>
+            <header className="modal-header">
+              <h2>Ingredient List</h2>
+            </header>
+            <div className="modal-inner">
+              <div className="ingredientList">
+                {
+                  props.ingredientList.map((item) => {
+                    return (
+                      <RecipeIncrementer key={`recipe-${item._id}`} 
+                        recipeIngredients={ props.recipeIngredients }
+                        item={item}
+                        removeIngredient={ props.removeIngredient }
+                        addIngredient={ props.addIngredient }
+                      />
+                    )
+                  })
+                }
               </div>
             </div>
           </div>
-        ) : (null)
+        </div>
+      ) : ( null )
       }
     </div>
   )

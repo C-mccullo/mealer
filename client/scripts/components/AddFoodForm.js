@@ -11,7 +11,7 @@ class AddFoodForm extends Component {
         quantity: "",
         portions:  "",
         pickerExpiry: moment(),
-        expiry: "",
+        expiry: null,
         isLoading: false,
         options: []
     }
@@ -49,7 +49,8 @@ class AddFoodForm extends Component {
   }
 
   handleExpiry(date) {
-    const formattedDate = moment(date).unix();
+    // const formattedDate = moment(date).unix();
+    const formattedDate = moment(date).format("MMM Do, YY");
     this.setState({
       expiry: formattedDate,
       pickerExpiry: date
@@ -65,11 +66,11 @@ class AddFoodForm extends Component {
   }
 
   postFoodItem() {
-    console.log("ingredient exists, will post foodItem")
     const foodItem = Object.assign({}, this.state);
     delete foodItem.pickerExpiry;
     delete foodItem.options;
     delete foodItem.isLoading;
+    console.log(foodItem);
     fetch("/api/foods", {
       method: "POST",
       body: JSON.stringify(foodItem),
@@ -106,8 +107,12 @@ class AddFoodForm extends Component {
           <input className="form-input" onChange={this.handleChange} name="portions" required type="number" min="1" placeholder="Enter the portion size for your food" value={this.state.portions} />
         </div>
         <div className="form-row">
-          <label className="form-label" htmlFor="expiry">Expiry Date</label>
-          <DatePicker className="form-input" name="expiry" selected={this.state.pickerExpiry} onChange={this.handleExpiry} />
+          <label className="form-label" htmlFor="expiry">Expiry Date (optional)</label>
+          <DatePicker className="form-input" name="expiry" 
+            onChange={ (value) => this.handleExpiry(value)} 
+            value={this.state.expiry}
+            placeholderText="add an expiry date"
+          />
         </div>
         <div className="form-row">
           <button className="button-blue">Add Food Item</button>

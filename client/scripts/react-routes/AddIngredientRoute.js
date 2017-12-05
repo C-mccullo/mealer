@@ -11,7 +11,7 @@ const AddIngredientRoute = (props) => {
         {/* ADD TYPEAHEAD */}
         <FilterBar/>       
         <AddFoodForm fetchFoods={ props.fetchFoods }/>
-        <InventoryList inventory={ props.inventory } fetchFoods={ props.fetchFoods }/>
+        <InventoryList inventory={ props.inventory } deleteFood ={ props.deleteFood } fetchFoods={ props.fetchFoods }/>
       </div>
     )} 
     />

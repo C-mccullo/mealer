@@ -1,4 +1,4 @@
-
+const moment = require("moment");
 // DON'T USE!!
 const mongoose = require('mongoose');
 const Ingredient = require('./models/IngredientModel');
@@ -44,13 +44,13 @@ const foods = [
     ingredient: ingredients.tomatoes._id,
     quantity: 5,
     portions: 2,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.milk._id,
     quantity: 1,
     portions: 10,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.pasta._id,
@@ -68,49 +68,49 @@ const foods = [
     ingredient: ingredients.sproutedGrainBread._id,
     quantity: 1,
     portions: 12,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.orangeJuice._id,
     quantity: 1,
     portions: 10,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.chocoMuffin._id,
     quantity: 1,
     portions: 4,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.parmesean._id,
     quantity: 1,
     portions: 12,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.gravy._id,
     quantity: 1,
     portions: 3,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.spinach._id,
     quantity: 1,
     portions: 8,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.peppers._id,
     quantity: 1,
     portions: 4,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.tomatoes._id,
     quantity: 4,
     portions: 1,
-    expiry: 1514773072
+    expiry: moment.unix(1514773072).format("MMM Do, YYYY")
   },
   {
     ingredient: ingredients.bannanas._id,
@@ -120,9 +120,9 @@ const foods = [
   },
   {
     ingredient: ingredients.beef._id,
-    expiry: 1511849221,
     portions: 2,
-    quantity: 1
+    quantity: 1,
+    expiry: moment.unix(1511849221).format("MMM Do, YYYY")
   }
 ]
 

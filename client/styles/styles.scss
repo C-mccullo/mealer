@@ -265,17 +265,40 @@ form.form {
 .recipeList {
   @extend .inventoryList;
 }
+
 .recipe {
   @extend .inventoryItem;
 }
 
-// MEAL PLAN LIST
+.recipeIncrementer {
+  display: inline-block;
+  text-align: right;
+  padding: 5px 0px;
+}
 
+.recipeIncrementer-button {
+  padding: 0px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-size: 13px;
+  border: none;
+  border-radius: 50%;
+  background-color: $primary;
+  color: $dark;
+}
+
+.recipeIncrementer-counter {
+  display: inline-block;
+}
+
+// MEAL PLAN LIST
 .mealPlanList {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .mealPlanDay {
   @extend .inventoryItem;
   h2 {

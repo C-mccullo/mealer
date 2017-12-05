@@ -12,7 +12,7 @@ const InventoryItem = (props) => {
   return (
     <div className="inventoryItem" key={`recipe-${props.item._id}`}>
       <h3 className="inventoryItem-name">{props.item.ingredient.name}</h3>
-      <p className="inventoryItem-expiry">{ props.item.expiry ? formatUnix(props.item.expiry) : "" }</p>
+      <p className="inventoryItem-expiry"> { props.item.expiry ? "Expires " + props.item.expiry : "" }</p>
       <span>{ props.item.quantity }</span>
       <span className="deleteItem" onClick={() => props.deleteFood(props.item._id)}> X </span>
     </div>

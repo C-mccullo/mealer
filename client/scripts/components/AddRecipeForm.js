@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import IngredientModal from "./IngredientModal";
+import RecipeModal from "./RecipeModal";
 
 
 class AddRecipeForm extends Component {
@@ -8,8 +8,7 @@ class AddRecipeForm extends Component {
     this.state = {
       name: "",
       ingredients: [],
-      daysUsed: ["monday", "wednesday"],
-      isModalOpen: false
+      isModalOpen:false
     }
     this.handleChange = this.handleChange.bind(this);
     this.resetForm = this.resetForm.bind(this);
@@ -67,7 +66,7 @@ class AddRecipeForm extends Component {
   }
 
   mapIngredients() {
-    console.log("AddRecipeForm state: ", this.state.ingredients)
+    // console.log("AddRecipeForm state: ", this.state.ingredients)
     return (
       this.state.ingredients.map((ingredient) => {
         return <li key={`ingredient-${ingredient._id}`}>{ingredient.name}</li>
@@ -76,14 +75,10 @@ class AddRecipeForm extends Component {
   }
   // function used in submitRecipe
   packageRecipe(recipe) {
-    const { name, ingredients, daysUsed } = recipe // this.state
-    const ingredientIDs = ingredients.map((ingredient) => {
-      return ingredient._id
-    });
+    const { name, ingredients } = recipe // this.state
     const RecipeModel = {
       name: name,
-      ingredients: ingredientIDs,
-      daysUsed: daysUsed
+      ingredients: ingredients,
     }
     return RecipeModel;
   }
@@ -110,7 +105,6 @@ class AddRecipeForm extends Component {
   }
 
   render() {
-    console.log("rendering add recipe form");
     return (
       // Should this be a form?
       <form onSubmit={ e => this.submitRecipe(e) }>
@@ -120,7 +114,7 @@ class AddRecipeForm extends Component {
           <ul className="recipe-Ingredients">
             { this.state.ingredients ? this.mapIngredients() : null }
           </ul>
-          <IngredientModal 
+          <RecipeModal 
             isModalOpen={ this.state.isModalOpen } 
             closeModal={ this.closeModal } 
             ingredientList={ this.props.ingredientList }

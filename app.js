@@ -38,9 +38,10 @@ app.post("/api/ingredientList", ingredientController.postIngredient);
 app.get("/api/foods", foodItemController.getFoods);
 
 app.post("/api/foods/", 
-  foodItemController.checkFoods, 
-  foodItemController.postFoods
+  foodItemController.checkIngredientExist, 
+  foodItemController.checkByExpiry
 );
+//foodItemController.postFoods
 
 app.delete("/api/foods/:id", foodItemController.deleteFood);
 

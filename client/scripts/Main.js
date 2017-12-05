@@ -30,8 +30,7 @@ class Main extends Component {
       ],
       recipes: [
         // name: String,
-        // ingredients: Has Many Inventories
-        // 
+        // ingredients: [{ ingredient, portionSize }]
       ],
       weekMealPlan: {
         monday: [],
@@ -150,7 +149,8 @@ class Main extends Component {
             />
 
             <AddIngredientRoute exact path="/inventory" inventory={ this.state.inventory }
-              fetchFoods={ this.fetchFoods } 
+              fetchFoods={ this.fetchFoods }
+              deleteFood={ this.deleteFood } 
             />
 
             <AddRecipeRoute path="/recipes" ingredientList={ this.state.ingredientList } 

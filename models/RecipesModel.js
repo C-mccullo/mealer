@@ -18,8 +18,6 @@ const RecipeSchema = new mongoose.Schema({
   ingredients: [RecipeIngredient]
 });
 
-// RecipeSchema.pre("save", AddIngredients);
-
 module.exports = mongoose.model("Recipe", RecipeSchema);
 
 // for the recipe model this will take all the ingredients and populate the doc with the ingredients 👇
