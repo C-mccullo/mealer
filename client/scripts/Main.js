@@ -4,7 +4,9 @@ import DatePicker from "react-datepicker";
 import { Switch } from "react-router-dom";
 
 // Routes
+import HomeRoute from "./react-routes/HomeRoute";
 import LoginRoute from "./react-routes/LoginRoute";
+import SignUpRoute from "./react-routes/SignUpRoute";
 import AddIngredientRoute from "./react-routes/AddIngredientRoute";
 import AddRecipeRoute from "./react-routes/AddRecipeRoute";
 import MealPlanRoute from "./react-routes/MealPlanRoute";
@@ -61,7 +63,6 @@ class Main extends Component {
     this.fetchRecipes = this.fetchRecipes.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.fetchMealPlan = this.fetchMealPlan.bind(this);
-    // this.updateMealPlan = this.updateMealPlan.bind(this);
   }
 
   componentDidMount() {
@@ -144,21 +145,23 @@ class Main extends Component {
         />
         <div className="mainContainer">
           <Switch>
-            <LoginRoute exact path="/" inventory={ this.state.inventory } 
-              fetchFoods={this.fetchFoods} 
-            />
+            <HomeRoute exact path="/"loggedIn={ this.state.loggedIn }/>
+            
+            <LoginRoute exact path="/login" inventory={ this.state.inventory } />
+
+            <SignUpRoute exact path="/signup"/>
 
             <AddIngredientRoute exact path="/inventory" inventory={ this.state.inventory }
-              fetchFoods={ this.fetchFoods }
+              fetchFoods={ this.fetchFoods } fetchIngredients={ this.fetchIngredients }
               deleteFood={ this.deleteFood } 
             />
 
-            <AddRecipeRoute path="/recipes" ingredientList={ this.state.ingredientList } 
-              fetchRecipes={ this.fetchRecipes } fetchFoods={ this.fetchFoods }
-              recipes={ this.state.recipes } deleteRecipe={ this.deleteRecipe }
+            <AddRecipeRoute path="/recipes" ingredientList={ this.state.ingredientList }
+              fetchIngredients={ this.fetchIngredients } fetchRecipes={ this.fetchRecipes } fetchFoods={ this.fetchFoods } recipes={ this.state.recipes } 
+              deleteRecipe={ this.deleteRecipe }
             />
 
-            <MealPlanRoute path="/mealPlanner" inventory={this.state.inventory} 
+            <MealPlanRoute path="/mealplanner" inventory={this.state.inventory} 
               recipes={this.state.recipes}
               weekMealPlan={ this.state.weekMealPlan }
               fetchMealPlan={ this.fetchMealPlan }

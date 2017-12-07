@@ -862,10 +862,26 @@ body {
   background-color: #E9E0D6;
   color: #0D1116; }
 
+.button-green {
+  margin: 10px 0px;
+  padding: 10px 20px;
+  background-color: #29ABA4;
+  border-radius: 0px;
+  border: 1px solid #0D1116;
+  cursor: pointer; }
+
 .button-blue {
   margin: 10px 0px;
   padding: 10px 20px;
   background-color: #77C5F7;
+  border-radius: 0px;
+  border: 1px solid #0D1116;
+  cursor: pointer; }
+
+.button-red {
+  margin: 10px 0px;
+  padding: 10px 20px;
+  background-color: #EB7260;
   border-radius: 0px;
   border: 1px solid #0D1116;
   cursor: pointer; }
@@ -954,6 +970,9 @@ body {
     .header li.navBar-link a.navBar-login {
       color: #FBF9F7;
       border: 1px solid #77C5F7; }
+    .header li.navBar-link a.navBar-signup {
+      color: #FBF9F7;
+      border: 1px solid #29ABA4; }
     .header li.navBar-link a.navBar-logout {
       color: #FBF9F7;
       border: 1px solid #EB7260; }
@@ -977,7 +996,7 @@ body {
 
 .inventoryItem-name {
   text-transform: capitalize;
-  background-color: rgba(13, 17, 22, 0.05);
+  background-color: #EFEDEB;
   padding: 10px; }
 
 .inventoryItem-expiry {
@@ -1067,7 +1086,7 @@ form.form {
   border: none;
   border-radius: 50%;
   background-color: #29ABA4;
-  color: #0D1116; }
+  color: #FBF9F7; }
 
 .recipeIncrementer-counter {
   display: inline-block; }
@@ -1081,3 +1100,27 @@ form.form {
   text-transform: capitalize;
   background-color: rgba(13, 17, 22, 0.05);
   padding: 10px; }
+
+.homeContainer {
+  margin: 60px; }
+
+.home {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+  min-width: 250px;
+  margin: 0 auto;
+  position: relative; }
+
+svg.homeImage {
+  fill: #bfbdbc;
+  max-height: 250px;
+  max-width: 250px;
+  display: block;
+  position: absolute;
+  right: 35%;
+  z-index: -2;
+  top: -5px;
+  transform: translateX(50%); }

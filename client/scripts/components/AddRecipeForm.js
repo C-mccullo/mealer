@@ -16,6 +16,8 @@ class AddRecipeForm extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.removeIngredient = this.removeIngredient.bind(this);
+    this.incrementPortion = this.incrementPortion.bind(this);
+    this.decrementPortion = this.decrementPortion.bind(this);
     this.mapIngredients = this.mapIngredients.bind(this);
     this.packageRecipe = this.packageRecipe.bind(this);
     this.postRecipe = this.postRecipe.bind(this);
@@ -65,6 +67,36 @@ class AddRecipeForm extends Component {
     this.setState({ ingredients: newIngredientList });
   }
 
+  incrementPortion(e, id) {
+    e.preventDefault();
+    // check ingredient State for ingredient with id, then add 1 to portionSize
+    const ingredientArray = this.state.ingredients;
+    const ingredientList = ingredientArray.map((item) => {
+      if (item._id === id) {
+        const updateItem = Object.assign({}, item);
+        updateItem["portionSize"] += 1;
+        return updateItem;
+      }
+      return item
+    })  
+    this.setState({ ingredients: ingredientList });
+  }
+  
+  decrementPortion(e, id) {
+    e.preventDefault();
+    // check ingredient State for ingredient with id, then add 1 to portionSize
+    const ingredientArray = this.state.ingredients;
+    const ingredientList = ingredientArray.map((item) => {
+      if (item._id === id) {
+        const updateItem = Object.assign({}, item);
+        updateItem["portionSize"] -= 1;
+        return updateItem;
+      }
+      return item
+    })
+    this.setState({ ingredients: ingredientList });
+  }
+
   mapIngredients() {
     // console.log("AddRecipeForm state: ", this.state.ingredients)
     return (
@@ -75,7 +107,7 @@ class AddRecipeForm extends Component {
   }
   // function used in submitRecipe
   packageRecipe(recipe) {
-    const { name, ingredients } = recipe // this.state
+    const { name, ingredients } = recipe //this.state
     const RecipeModel = {
       name: name,
       ingredients: ingredients,
@@ -84,7 +116,6 @@ class AddRecipeForm extends Component {
   }
   // function used in submitRecipe
   postRecipe(model) {
-    console.log(model);
     fetch("/api/recipes", {
       method: "POST",
       body: JSON.stringify(model),
@@ -92,6 +123,7 @@ class AddRecipeForm extends Component {
         "Content-type": "application/json",
       }
     })
+    // .then(() => this.props.fetchIngredients())
     .then(() => this.props.fetchRecipes())
     .then(() => this.resetForm())
     this.resetForm();
@@ -101,6 +133,7 @@ class AddRecipeForm extends Component {
     e.preventDefault();
     const recipe = this.state;
     const model = this.packageRecipe(recipe);
+    console.log(model);
     this.postRecipe(model);
   }
 
@@ -121,6 +154,8 @@ class AddRecipeForm extends Component {
             recipeIngredients={ this.state.ingredients } 
             addIngredient={ this.addIngredient }
             removeIngredient={ this.removeIngredient }
+            incrementPortion={ this.incrementPortion }
+            decrementPortion={ this.decrementPortion }
           />
           <button type="button" onClick={ e => this.openModal(e) }>Add Ingredients</button>
         </div>

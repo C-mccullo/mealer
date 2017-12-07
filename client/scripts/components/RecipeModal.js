@@ -33,6 +33,8 @@ const RecipeModal = (props) => {
                         item={item}
                         removeIngredient={ props.removeIngredient }
                         addIngredient={ props.addIngredient }
+                        incrementPortion={ props.incrementPortion }
+                        decrementPortion={ props.decrementPortion }
                       />
                     )
                   })

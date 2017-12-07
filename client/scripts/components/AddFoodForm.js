@@ -78,6 +78,7 @@ class AddFoodForm extends Component {
         "Content-type": "application/json",
       }
     })
+      .then(() => this.props.fetchIngredients())
       .then(() => this.props.fetchFoods())
       .then(() => this.resetForm())
   }

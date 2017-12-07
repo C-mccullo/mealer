@@ -8,7 +8,10 @@ const AddRecipeRoute = (props) => {
   return (
     <Route { ...props } render={() => (
       <div>
-        <AddRecipeForm ingredientList={props.ingredientList} fetchRecipes={props.fetchRecipes} fetchFoods={props.fetchFoods} />
+        <AddRecipeForm ingredientList={props.ingredientList} 
+          fetchRecipes={props.fetchRecipes} fetchFoods={props.fetchFoods} 
+          fetchIngredients={props.fetchIngredients}
+        />
         <RecipeList deleteRecipe={props.deleteRecipe} recipes={props.recipes} />
       </div>
     )}

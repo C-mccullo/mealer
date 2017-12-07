@@ -12,7 +12,7 @@ const RecipeList = (props) => {
               <ul>
                 {
                   recipe.ingredients.map((ingredient, index) => {
-                    return <li key={ingredient._id}> {ingredient.name}</li>
+                    return <li key={ingredient._id}> {ingredient.ingredient.name} {ingredient.portionSize}</li>
                   }) 
                 }
               </ul>

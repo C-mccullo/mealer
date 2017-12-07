@@ -55,7 +55,10 @@ app.delete("/api/recipes/:id", recipeController.deleteRecipe);
 // MEAL PLAN
 app.get("/api/mealPlan", mealPlanController.getMealPlan);
 
-app.put("/api/mealPlan/:day", mealPlanController.updateMealPlan);
+app.put("/api/mealPlan/:day", 
+  mealPlanController.updateFoodItems,
+  mealPlanController.updateMealPlan
+);
 
 // This wildcard route serves your index.html file (which
 // initializes React)

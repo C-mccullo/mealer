@@ -4,8 +4,7 @@ const LoginModal = (props) => {
   return (
     <div className="login">
       <div className="loginModal">
-        <h1>Welcome to Mealer!</h1>
-        <h3>keep track of all your food and make meal plans quickly ;)</h3>
+        <h2>Log In</h2>
         <form className="loginModal-form" action="">
           <label htmlFor="email">User Email:</label>
           <input className="loginModal-input" type="email"/>

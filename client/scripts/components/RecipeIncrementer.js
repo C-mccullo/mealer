@@ -9,22 +9,25 @@ const RecipeIncrementer = (props) => {
   function toggleIngredient(item) {
     const ingredient = Object.assign({}, item);
     ingredient.portionSize = 1;
-    console.log(recipeIngredients);
 
-    if (recipeIngredients.filter(e => e._id == ingredient._id).length > 0) {
-      console.log("recipeList includes: ", ingredient);
+    if (recipeIngredients.filter(e => e._id === ingredient._id).length > 0) {
       props.removeIngredient(ingredient);
     } else {
-      console.log("recipeList doesn't include", ingredient);
       props.addIngredient(ingredient);
     }
   }
 
   function ingredientClass(ingredient) {
-    if (props.recipeIngredients.filter(e => e._id == ingredient._id).length > 0) {
+    if (props.recipeIngredients.filter(e => e._id === ingredient._id).length > 0) {
       return "ingredient ingredient-selected";
     }
     return "ingredient";
+  }
+
+  function portionCount(id) {
+    const ingredient = props.recipeIngredients.filter(e => e._id === id)
+    const portion = ingredient[0] ? ingredient[0].portionSize : 0
+    return portion
   }
 
   return(
@@ -36,9 +39,15 @@ const RecipeIncrementer = (props) => {
       </label>
       <div className="recipeIncrementer">
         {/* <input name={ `ingredient-${item._id}` } type="number" min="0" step="1" /> */}
-        <button className="recipeIncrementer-button">-</button>
-        <div className="recipeIncrementer-counter">portion</div>
-        <button className="recipeIncrementer-button">+</button>
+        <button className="recipeIncrementer-button" 
+          onClick={ (e) => props.decrementPortion(e, item._id) }
+        >-</button>
+        <div className="recipeIncrementer-counter">
+          { portionCount(item._id) }
+        </div>
+        <button className="recipeIncrementer-button"
+          onClick={(e) => props.incrementPortion(e, item._id) }
+        >+</button>
       </div>
     </div>
   )

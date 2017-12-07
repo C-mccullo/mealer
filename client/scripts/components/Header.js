@@ -1,17 +1,19 @@
 import React from "react";
-import { NavLink, withRouter } from "react-router-dom"; 
+import { Link, NavLink, withRouter } from "react-router-dom"; 
 const Header = (props) => {
   if (props.loggedIn) {
     return (
       <header className="header">
         <nav className="navBar">
-          <h2 className="app-logo">Mealer</h2>
+          <Link to="/">
+            <h2 className="app-logo">Mealer</h2>
+          </Link>
           <ul className="navBar-list">
             <li className="navBar-link">
               <NavLink to="/inventory" activeClassName="activeLink">Inventory</NavLink>
             </li>
             <li className="navBar-link">
-              <NavLink to="/mealPlanner" activeClassName="activeLink">Meal Planner</NavLink>
+              <NavLink to="/mealplanner" activeClassName="activeLink">Meal Planner</NavLink>
             </li>
             <li className="navBar-link">
               <NavLink to="/recipes" activeClassName="activeLink">Add a Recipe</NavLink>
@@ -31,17 +33,18 @@ const Header = (props) => {
     return (
       <header className="header">
         <nav className="navBar">
-          <h2 className="app-logo">Mealer</h2>
+          <Link to="/">
+            <h2 className="app-logo">Mealer</h2>
+          </Link>
           <ul className="navBar-list navBar-list_right">
             <li className="navBar-link">
-              <a role="button" className="navBar-login" 
-                onClick={ ()=> props.login(props.history) }
-                >Log In</a>
+              <NavLink className="navBar-login" to="/login">Log In</NavLink>
             </li>
             <li className="navBar-link">
-              <a role="button" className="navBar-logout" 
+              <NavLink className="navBar-signup" to="/signup">Signup</NavLink>
+              {/* <a role="button" className="navBar-logout" 
               onClick={ ()=> props.login(props.history) }
-              >Sign up</a>
+              >Sign up</a> */}
             </li>
           </ul>
         </nav>

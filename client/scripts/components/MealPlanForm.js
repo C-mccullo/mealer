@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import RecipeModal from "./RecipeModal";
+import MealPlanModal from "./MealPlanModal";
 
 class MealPlanForm extends Component {
   constructor(props) {
@@ -94,7 +94,7 @@ class MealPlanForm extends Component {
           <ul className="recipe-Ingredients">
             {this.state.recipeArray ? this.mapRecipes() : null}
           </ul>
-          <RecipeModal isModalOpen={ this.state.isModalOpen } 
+          <MealPlanModal isModalOpen={ this.state.isModalOpen } 
             closeModal={this.closeModal} 
             recipes={ this.props.recipes }
             recipeArray = { this.state.recipeArray } 
