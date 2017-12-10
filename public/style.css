@@ -410,7 +410,7 @@ h1, h2 {
   font-family: 'Lobster', cursive;
   letter-spacing: 2px; }
 
-h3, p, a, span, label {
+h3, p, a, span, label, button {
   font-family: 'Josefin Slab', serif; }
 
 ul {
@@ -1113,6 +1113,9 @@ form.form {
   min-width: 250px;
   margin: 0 auto;
   position: relative; }
+
+.homeButtonsContainer .button:nth-child(odd) {
+  margin-right: 25px; }
 
 svg.homeImage {
   fill: #bfbdbc;

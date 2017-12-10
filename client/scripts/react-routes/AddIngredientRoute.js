@@ -10,7 +10,9 @@ const AddIngredientRoute = (props) => {
       <div>
         {/* ADD TYPEAHEAD */}
         <FilterBar/>       
-        <AddFoodForm fetchFoods={ props.fetchFoods }/>
+        <AddFoodForm fetchFoods={ props.fetchFoods } 
+          fetchIngredients={ props.fetchIngredients }
+        />
         <InventoryList inventory={ props.inventory } deleteFood ={ props.deleteFood } fetchFoods={ props.fetchFoods } fetchIngredients={ props.fetchIngredients }/>
       </div>
     )} 

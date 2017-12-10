@@ -16,7 +16,7 @@ const Header = (props) => {
               <NavLink to="/mealplanner" activeClassName="activeLink">Meal Planner</NavLink>
             </li>
             <li className="navBar-link">
-              <NavLink to="/recipes" activeClassName="activeLink">Add a Recipe</NavLink>
+              <NavLink to="/recipes" activeClassName="activeLink">Recipes</NavLink>
             </li>
           </ul>
           <ul className="navBar-list navBar-list_right">
@@ -42,9 +42,6 @@ const Header = (props) => {
             </li>
             <li className="navBar-link">
               <NavLink className="navBar-signup" to="/signup">Signup</NavLink>
-              {/* <a role="button" className="navBar-logout" 
-              onClick={ ()=> props.login(props.history) }
-              >Sign up</a> */}
             </li>
           </ul>
         </nav>

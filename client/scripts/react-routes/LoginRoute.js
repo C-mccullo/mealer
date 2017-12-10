@@ -7,7 +7,7 @@ const LoginRoute = (props) => {
   return (
     <Route { ...props } render={() => (
       <div>
-        <Login/>
+        <Login login={ props.login }/>
       </div>
     )}
     />

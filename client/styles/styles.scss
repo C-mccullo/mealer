@@ -348,6 +348,12 @@ form.form {
   position: relative;
 }
 
+.homeButtonsContainer {
+  .button:nth-child(odd) {
+    margin-right: 25px;
+  }
+}
+
 svg.homeImage {
   fill: #bfbdbc;
   max-height: 250px;

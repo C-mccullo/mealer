@@ -53,8 +53,10 @@ class Main extends Component {
         // mealPlanId : ID
         // recipes: []
       },
-      loggedIn: true
+      loggedIn: false
     }
+    this.getMe = this.getMe.bind(this);
+    this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.fetchIngredients = this.fetchIngredients.bind(this);
@@ -65,27 +67,94 @@ class Main extends Component {
     this.fetchMealPlan = this.fetchMealPlan.bind(this);
   }
 
+  appLoad() {
+    // need to make a function with a callback to 
+    // fetch state info after user has loggedIn Successfully
+  }
+
+
   componentDidMount() {
+    this.getMe();
     this.fetchIngredients();
     this.fetchFoods();
     this.fetchRecipes();
     this.fetchMealPlan();
   }
 
-  login(history) {
-    this.setState({loggedIn: true});
-    history.push("/inventory");
-  }
+  getMe() {
+    fetch("/api/getme", {
+      method: "GET",
+      credentials: "include"
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        if (user._id) {
+          console.log("gotchu: ", user);
+          this.setState({ currentUser: user, loggedIn: true });
+        }
+      })
+  };
+
+  signup(newUser) {
+    console.log(newUser);
+    fetch("/api/signup", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser)
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        if (user._id) {
+          this.setState({ 
+            currentUser: json, 
+            loggedIn: true 
+          });
+        } else {
+          alert(user.message);
+        }
+      })
+    // history.push("/inventory");
+  };
+
+  login(user) {
+    fetch("/api/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then(res => {
+        if (res.status !== 401) {
+          return res.json();
+        } else {                        
+          return console.error("Unauthorized");
+        }
+      })
+      .then(json => {
+        this.setState({ currentUser: json, loggedIn: true });        
+      })
+    // history.push("/inventory");
+  };
+
   logout(history) {
-    this.setState({loggedIn: false});
-    history.push("/");
-  }
+    fetch("/api/logout", {
+      method: "GET",
+      credentials: "include",
+    })
+    this.setState({ currentUser: null, loggedIn: false});
+    // history.push("/");
+  };
 
   fetchIngredients() {
     fetch("/api/ingredientList")
       .then(res => res.json())
       .then(json => this.setState({ ingredientList: json }))
-  }
+  };
 
   fetchFoods() {
     fetch("/api/foods")
@@ -121,7 +190,6 @@ class Main extends Component {
     fetch("/api/mealPlan")
       .then(res => res.json())
       .then(json => { 
-        console.log(json);
         this.setState({ weekMealPlan: json });
       })
   };
@@ -140,16 +208,16 @@ class Main extends Component {
   render() {
     return(
       <div className="main">
-        <HeaderWithRouter history={ this.props.history } login={ this.login } logout={ this.logout } 
-          loggedIn={ this.state.loggedIn }
+        <HeaderWithRouter history={ this.props.history } login={ this.login } 
+          logout={ this.logout } loggedIn={ this.state.loggedIn }
         />
         <div className="mainContainer">
           <Switch>
-            <HomeRoute exact path="/"loggedIn={ this.state.loggedIn }/>
+            <HomeRoute exact path="/" loggedIn={ this.state.loggedIn } logout={ this.logout } />
             
-            <LoginRoute exact path="/login" inventory={ this.state.inventory } />
+            <LoginRoute exact path="/login" login={ this.login } inventory={ this.state.inventory } />
 
-            <SignUpRoute exact path="/signup"/>
+            <SignUpRoute exact path="/signup" signup={ this.signup }/>
 
             <AddIngredientRoute exact path="/inventory" inventory={ this.state.inventory }
               fetchFoods={ this.fetchFoods } fetchIngredients={ this.fetchIngredients }
