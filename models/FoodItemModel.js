@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const FoodItemSchema = new mongoose.Schema({
+  user: { 
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User"
+  },
   ingredient: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Ingredient"
@@ -10,10 +15,12 @@ const FoodItemSchema = new mongoose.Schema({
   expiry: String,
   quantity: {
     type: Number,
+    default: 1,
     required: "Please add a quantity for your food items"
   },
   portions: {
     type: Number,
+    default: 1,
     required: "Please add portion sizes for your food items"
   }
 });
@@ -21,7 +28,8 @@ const FoodItemSchema = new mongoose.Schema({
 // Will need to remove indexes before moving to production for performance
 FoodItemSchema.index({
   expiry: 1,
-  ingredient: 1
+  ingredient: 1,
+  user: 1
 });
 
 // ***** expiry and portions will eventually be moved to FoodItem

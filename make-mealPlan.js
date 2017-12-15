@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/meal-planner');
 
 const mealPlans = [
   {
-    user: "Me",
+    user: mongoose.Types.ObjectId,
     monday:[],
     tuesday: [],
     wednesday: [],

@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const MealPlanSchema = new mongoose.Schema({
-  user: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User"
+  },
   monday: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recipe"
@@ -32,5 +36,9 @@ const MealPlanSchema = new mongoose.Schema({
     ref: "Recipe"
   }]
 });
+
+MealPlanSchema.index({
+  user: 1
+})
 
 module.exports = mongoose.model("MealPlan", MealPlanSchema);

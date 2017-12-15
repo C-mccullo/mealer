@@ -51,14 +51,7 @@ app.use(express.static('assets'));
 // API ROUTES that have precedence over the wildcard route below
 
 // USERS
-app.get("/api/getme", (req, res) => {
-  console.log(req);
-  if (req.user) {
-    res.status(200).send(req.user)
-  } else {
-    res.status(401).json({ message: "Unauthorized." });
-  }
-});
+app.get("/api/getme", userController.checkUser);
 
 app.get('/api/users', (req, res) => {
   User.find()
@@ -69,6 +62,7 @@ app.post("/api/signup",
   userController.sanitizeUser,
   userController.registerUser,
   passport.authenticate("local"), 
+  mealPlanController.newUserMealPlan,
   userController.sendUser
 );
 
@@ -84,29 +78,53 @@ app.get("/api/ingredientList", ingredientController.getIngredients);
 
 app.get("/api/search/ingredientList", ingredientController.searchIngredients);
 
-app.post("/api/ingredientList", ingredientController.postIngredient);
+app.post("/api/ingredientList", 
+  userController.isAuthorized,
+  ingredientController.postIngredient
+);
 
 // INVENTORY
-app.get("/api/foods", foodItemController.getFoods);
+app.get("/api/foods", 
+  userController.isAuthorized,
+  foodItemController.getFoods
+);
 
-app.post("/api/foods/", 
+app.post("/api/foods/",
+  userController.isAuthorized,
   foodItemController.checkIngredientExist, 
   foodItemController.checkByExpiry
 );
 
-app.delete("/api/foods/:id", foodItemController.deleteFood);
+app.delete("/api/foods/:id", 
+  userController.isAuthorized,
+  foodItemController.deleteFood
+);
 
 // RECIPES
-app.get("/api/recipes", recipeController.getRecipes);
+app.get("/api/recipes", 
+  userController.isAuthorized,
+  recipeController.getRecipes
+);
 
-app.post("/api/recipes", recipeController.postRecipe);
+app.post("/api/recipes", 
+  userController.isAuthorized,
+  recipeController.postRecipe
+);
 
-app.delete("/api/recipes/:id", recipeController.deleteRecipe);
+app.delete("/api/recipes/:id", 
+  userController.isAuthorized,
+  recipeController.deleteRecipe
+);
 
 // MEAL PLAN
-app.get("/api/mealPlan", mealPlanController.getMealPlan);
+app.get("/api/mealPlan", 
+  userController.isAuthorized,
+  mealPlanController.getMealPlan
+);
 
-app.put("/api/mealPlan/:day", 
+app.put("/api/mealPlan/:day",
+  userController.isAuthorized,
+  mealPlanController.restoreUnusedFoodItems,
   mealPlanController.updateFoodItems,
   mealPlanController.updateMealPlan
 );

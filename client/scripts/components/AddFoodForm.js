@@ -73,6 +73,7 @@ class AddFoodForm extends Component {
     console.log(foodItem);
     fetch("/api/foods", {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify(foodItem),
       headers: {
         "Content-type": "application/json",

@@ -8,7 +8,7 @@ function formatUnix(expiry) {
 }
 
 const InventoryItem = (props) => {
-
+  // TODO: structure and style Inventory Item to be different when negative quantity or when expired
   return (
     <div className="inventoryItem" key={`recipe-${props.item._id}`}>
       <h3 className="inventoryItem-name">{props.item.ingredient.name}</h3>

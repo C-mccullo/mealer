@@ -12,7 +12,7 @@ exports.sanitizeUser = (req, res, next) => {
   });
   const errors = req.validationErrors();
   if (errors) {
-    errors.map(err => console.log(err.msg))
+    errors.map(err => console.log("validation errors", err.msg))
   } else {
     next();
   }
@@ -26,7 +26,7 @@ exports.registerUser = (req, res, next) => {
     if (err) {
       res.send(err);
     } else {
-      console.log("registeration successful! ", user);
+      // console.log("registeration successful! ", user);
       next();
     }
   })
@@ -36,7 +36,25 @@ exports.sendUser = (req, res) => {
   res.send(req.user);
 }
 
+exports.checkUser = (req, res, next) => {
+  if (req.user) {
+    res.status(200).send(req.user)
+    next();
+  } else {
+    res.status(401).json({ message: "Unauthorized." });
+  }
+}
+
 exports.logoutUser = (req, res) => {
   req.logout();
   res.json("User is logged out");
+}
+
+exports.isAuthorized = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next();
+    return;
+  } else {
+    res.status(401).json({ message: "Unauthorized" });
+  }
 }

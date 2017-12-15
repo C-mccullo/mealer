@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const Recipe = require("../models/RecipesModel");
 
 exports.getRecipes = (req, res) => {
-  Recipe.find().populate("ingredients.ingredient").exec().then((docs) => {
+  const userID = mongoose.Types.ObjectId(req.user._id);
+  Recipe.find({user: userID}).populate("ingredients.ingredient").exec().then((docs) => {
     res.status(200).send(docs);
   })
     .catch((err) => {
@@ -11,6 +12,8 @@ exports.getRecipes = (req, res) => {
 }
 
 exports.postRecipe = (req, res) => {
+  console.log("post recipe: ", req.user);
+  const user = mongoose.Types.ObjectId(req.user._id);
   const name = req.body.name.toLowerCase();
   const ingredients = req.body.ingredients;
   const formatIngredients = ingredients.map((ingredient) => {
@@ -22,8 +25,12 @@ exports.postRecipe = (req, res) => {
   })
 
   const recipeModel = new Recipe();
-  const recipe = Object.assign(recipeModel, { name:name, ingredients:formatIngredients });
-  console.log(recipe);
+  const recipe = Object.assign(recipeModel, { 
+    user: user, 
+    name: name, 
+    ingredients:formatIngredients 
+  });
+  // console.log(recipe);
   recipe.save()
     .then((doc) => {
       res.status(200).send(doc);

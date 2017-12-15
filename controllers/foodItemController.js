@@ -3,19 +3,21 @@ const FoodItem = require("../models/FoodItemModel");
 const Ingredient = require("../models/IngredientModel");
 
 exports.getFoods = (req, res) => {
-  FoodItem.find().populate('ingredient').then((docs) => {
+  const userID = req.user._id;
+  // TODO: If no FoodItems for current user, send 204 status
+  FoodItem.find({ user: userID }).populate('ingredient').then((docs) => {
     res.status(200).send(docs);
   })
     .catch((err) => {
       res.status(400).send(err);
     })
-  // turn to reference "foodItem model" then populate with Ingredient
 }
 
 exports.postFoods = (req, res) => {
-  // post foodItems, if Ingredient with name is not found, create a new ingredient then add the ingredientID.
+  // post foodItem once checkIngredientExists middleware determines if Ingredient exists
   console.log("postfoods", req.body);
-  const foodItem = new FoodItem({ expiry: req.body.expiry, quantity: req.body.quantity, portions: req.body.portions, ingredient: req.body.ingredientID });
+  const userID = mongoose.Types.ObjectId(req.user._id);
+  const foodItem = new FoodItem({ expiry: req.body.expiry, quantity: req.body.quantity, portions: req.body.portions, ingredient: req.body.ingredientID, user: userID });
   foodItem.save()
     .then((doc) => {
       res.status(200).send(doc);
@@ -25,10 +27,11 @@ exports.postFoods = (req, res) => {
     })
 }
 
-// Add middleware to check the Ingredient for the FoodItem being posted exists
+// Add middleware to check the for an Ingredient name for the FoodItem being posted exists
 exports.checkIngredientExist = (req, res, next) => {
   const foodItem = req.body;
   const foodItemName = foodItem.name.trim().toLowerCase();
+  // will create a new ingredient with the name of req.body.name if does not already exist
   Ingredient.findOneAndUpdate({
     name: foodItemName
   }, { name: foodItemName },
@@ -46,6 +49,7 @@ exports.checkIngredientExist = (req, res, next) => {
 
 // a middleware to check to see if foodItem with expiry already exists, if so update quantity or make new foodItem 
 exports.checkByExpiry = ( req, res ) => {
+  const userID = mongoose.Types.ObjectId(req.user._id);
   const ingredientID = req.body.ingredientID;
   let expiry = req.body.expiry;
   if (typeof(expiry) === "string" && expiry.length === 0) { expiry = null; }
@@ -57,7 +61,8 @@ exports.checkByExpiry = ( req, res ) => {
     expiry: req.body.expiry, 
     portions: req.body.portions, 
     $inc: { quantity: req.body.quantity }, 
-    ingredient: req.body.ingredientID
+    ingredient: req.body.ingredientID, 
+    user: userID
   }, 
   {
     upsert: true,

@@ -118,6 +118,7 @@ class AddRecipeForm extends Component {
   postRecipe(model) {
     fetch("/api/recipes", {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify(model),
       headers: {
         "Content-type": "application/json",

@@ -15,21 +15,16 @@ const RecipeIngredient = new mongoose.Schema({
 
 const RecipeSchema = new mongoose.Schema({
   name: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
   ingredients: [RecipeIngredient]
 });
 
+
+RecipeSchema.index({
+  user: 1
+});
+
 module.exports = mongoose.model("Recipe", RecipeSchema);
-
-// for the recipe model this will take all the ingredients and populate the doc with the ingredients 👇
-// Recipe.find().populate('ingredients').exec()
-// .then()
-
-// Before the save of MealPlan document 👇
-// MealPlanSchema.pre('save', function(done) {
-//   this.recipes.forEach(r => {
-//     r.ingredients.each(i => {
-//       i.quantity_available -= 1;
-//       i.save();
-//     })
-//   })
-// });

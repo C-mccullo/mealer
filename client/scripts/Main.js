@@ -23,9 +23,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredientList: [
-        // name: 
-      ],
+      ingredientList: [],
       inventory: [
         // name: String
         // quantity: Number
@@ -43,9 +41,6 @@ class Main extends Component {
         saturday: [],
         sunday: []
       },
-      users: [
-        // Has Many Users
-      ],
       currentUser: {
         // name: String
         // email: String
@@ -55,7 +50,10 @@ class Main extends Component {
       },
       loggedIn: false
     }
-    this.getMe = this.getMe.bind(this);
+
+    this.loadData = this.loadData.bind(this);
+    this.getUserDetails = this.getUserDetails.bind(this);
+    this.fetchAllUserData = this.fetchAllUserData.bind(this);
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -67,33 +65,80 @@ class Main extends Component {
     this.fetchMealPlan = this.fetchMealPlan.bind(this);
   }
 
-  appLoad() {
-    // need to make a function with a callback to 
-    // fetch state info after user has loggedIn Successfully
-  }
-
-
   componentDidMount() {
-    this.getMe();
-    this.fetchIngredients();
-    this.fetchFoods();
-    this.fetchRecipes();
-    this.fetchMealPlan();
+    this.loadData(this.getUserDetails);
   }
 
-  getMe() {
-    fetch("/api/getme", {
-      method: "GET",
-      credentials: "include"
-    })
-      .then((res) => res.json())
-      .then((user) => {
-        if (user._id) {
-          console.log("gotchu: ", user);
-          this.setState({ currentUser: user, loggedIn: true });
+  loadData(fetchUserPromise) {
+    // getUser varaible stores the function argument that contains a promise
+    const getUser = fetchUserPromise();
+    getUser
+      .then((res) => {
+        if (res.status !== 401) {
+          return res.json();
+        } else {                        
+          throw(new Error("Unauthorized"))
         }
       })
-  };
+      .then((userData) => {
+        const userId = userData._id;
+        if (userId) {
+          console.log("userData recieved: ", userData);
+          // 🔥 output of promise.all is strictly ordered if the input
+          // is strictly ordered. Each resolved promise has internal index slot 
+          // which marks the index of the promise in the input 🔥
+          const fetchArray = this.fetchAllUserData(); 
+          // fetchArray order: ingredients, fooditems, recipes, mealPlan
+          Promise.all(fetchArray.map(fetchRequest => {
+            return fetchRequest.then(res => res.json()).then(json => json);
+          }))
+          .then(values => {
+            console.log("user data: ", userData)
+            this.setState({
+              currentUser: userData,
+              loggedIn: true,
+              ingredients: values[0],
+              inventory: values[1],
+              recipes: values[2],
+              weekMealPlan: values[3]
+            })
+          })
+          .then(() => this.props.history.push("/inventory"))
+          
+        } else {
+          console.error("no valid user received")
+        }
+      })
+        .catch((err) => console.log(err))
+  }
+
+  getUserDetails() {
+    return fetch("/api/getme", {
+      method: "GET",
+      credentials: "include"
+    });
+  }
+
+  fetchAllUserData() {
+    const ingredients = fetch("/api/ingredientList", {
+      method: "GET",
+      credentials: "include"
+    });
+    const foods = fetch("/api/foods", {
+      method: "GET",
+      credentials: "include"
+    });
+    const recipes = fetch("/api/recipes", {
+      method: "GET",
+      credentials: "include"
+    });
+    const mealPlan = fetch("/api/mealPlan", {
+      method: "GET",
+      credentials: "include"
+    });
+    const allPromises = [ingredients, foods, recipes, mealPlan];
+    return allPromises;
+  }
 
   signup(newUser) {
     console.log(newUser);
@@ -109,55 +154,72 @@ class Main extends Component {
       .then((user) => {
         if (user._id) {
           this.setState({ 
-            currentUser: json, 
+            currentUser: user, 
             loggedIn: true 
           });
+          this.login(newUser);
+          // this.props.history.push("/inventory");
         } else {
           alert(user.message);
         }
       })
-    // history.push("/inventory");
+    
   };
 
   login(user) {
-    fetch("/api/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then(res => {
-        if (res.status !== 401) {
-          return res.json();
-        } else {                        
-          return console.error("Unauthorized");
-        }
+    const fetchLogin = () => {
+      return fetch("/api/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user)
       })
-      .then(json => {
-        this.setState({ currentUser: json, loggedIn: true });        
-      })
-    // history.push("/inventory");
-  };
+    }
+    this.loadData(fetchLogin);
+  }
 
   logout(history) {
     fetch("/api/logout", {
       method: "GET",
       credentials: "include",
     })
-    this.setState({ currentUser: null, loggedIn: false});
-    // history.push("/");
+    .then(()=> {
+      this.setState({ 
+        currentUser: null, 
+        loggedIn: false,
+        ingredients: [], 
+        inventory: [],
+        recipes: [],
+        weekMealPlan: {
+          monday: [],
+          tuesday: [],
+          wednesday: [],
+          thursday: [],
+          friday: [],
+          saturday: [],
+          sunday: []
+        }
+      });
+      this.props.history.push("/");
+    })
   };
 
   fetchIngredients() {
-    fetch("/api/ingredientList")
+    fetch("/api/ingredientList", {
+      method: "GET",
+      credentials: "include"
+    })
       .then(res => res.json())
       .then(json => this.setState({ ingredientList: json }))
   };
 
   fetchFoods() {
-    fetch("/api/foods")
+    fetch("/api/foods", {
+      method: "GET",
+      credentials: "include"
+    })
       .then(res => res.json())
       .then(json => this.setState({ inventory: json }))
   };
@@ -167,12 +229,16 @@ class Main extends Component {
     // do not delete from inventory, set to "need to buy"
     fetch(`/api/foods/${id}`, {
       method: "DELETE",
+      credentials: "include"
     })
       .then(() => this.fetchFoods());
   };
 
   fetchRecipes() {
-    fetch("/api/recipes")
+    fetch("/api/recipes", {
+      method: "GET",
+      credentials: "include"
+    })
       .then(res => res.json())
       .then(json => this.setState({ recipes: json }))
   };
@@ -182,21 +248,29 @@ class Main extends Component {
     // send alert that recipe is still in use
     fetch(`/api/recipes/${id}`, {
       method: "DELETE",
+      credentials: "include"
     })
       .then(() => this.fetchRecipes());
   };
 
   fetchMealPlan() {
-    fetch("/api/mealPlan")
+    fetch("/api/mealPlan", {
+      method: "GET",
+      credentials: "include"
+    })
       .then(res => res.json())
       .then(json => { 
         this.setState({ weekMealPlan: json });
+      })
+      .then(() => {
+        this.fetchFoods();
       })
   };
 
   postMealPlan(day, recipeList) {
     fetch(`/api/mealPlan/${day}`, {
       method: "PUT",
+      credentials: "include",
       headers: {
         "Content-type": "application/json"
       },
@@ -221,19 +295,18 @@ class Main extends Component {
 
             <AddIngredientRoute exact path="/inventory" inventory={ this.state.inventory }
               fetchFoods={ this.fetchFoods } fetchIngredients={ this.fetchIngredients }
-              deleteFood={ this.deleteFood } 
+              deleteFood={ this.deleteFood } isLoggedIn={ this.state.loggedIn }
             />
 
-            <AddRecipeRoute path="/recipes" ingredientList={ this.state.ingredientList }
+            <AddRecipeRoute path="/recipes" ingredientList={ this.state.ingredients }
               fetchIngredients={ this.fetchIngredients } fetchRecipes={ this.fetchRecipes } fetchFoods={ this.fetchFoods } recipes={ this.state.recipes } 
-              deleteRecipe={ this.deleteRecipe }
+              deleteRecipe={ this.deleteRecipe } isLoggedIn={ this.state.loggedIn }
             />
 
             <MealPlanRoute path="/mealplanner" inventory={this.state.inventory} 
-              recipes={this.state.recipes}
-              weekMealPlan={ this.state.weekMealPlan }
-              fetchMealPlan={ this.fetchMealPlan }
-              postMealPlan={ this.postMealPlan } 
+              recipes={this.state.recipes} weekMealPlan={ this.state.weekMealPlan }
+              fetchMealPlan={ this.fetchMealPlan } postMealPlan={ this.postMealPlan }
+              isLoggedIn={ this.state.loggedIn } 
             />
           </Switch>
         </div>
