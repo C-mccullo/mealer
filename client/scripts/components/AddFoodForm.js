@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import DatePicker from "react-datepicker";
 import moment from "moment";
@@ -24,6 +25,14 @@ class AddFoodForm extends Component {
     this.postNewIngredient = this.postNewIngredient.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.resetForm = this.resetForm.bind(this);
+  }
+
+  componentDidMount() {
+    document.querySelector("#react-container").classList.add("modalOpen");
+  }
+
+  componentWillUnmount() {
+    document.querySelector("#react-container").classList.remove("modalOpen");
   }
 
   searchIngredients(query) {
@@ -92,6 +101,7 @@ class AddFoodForm extends Component {
   render() {
     return (
       <form className="form" onSubmit={this.handleSubmit}>
+        <Link role="button" to="/inventory" className="form-close" >X</Link>
         <div className="form-row">
           <h2>Add food to your inventory</h2>
           <label className="form-label" htmlFor="ingredient">Ingredient</label>
@@ -99,6 +109,7 @@ class AddFoodForm extends Component {
             inputProps={{name: "ingredient" , required: true}} 
             placeholder="Enter Ingredient Name"
             options={ this.state.options } 
+            bsSize="lg"
             isLoading={ this.state.isLoading } 
             onSearch={ (query) => this.searchIngredients(query) }
             onInputChange={ (e) => this.addToNameState(e) }

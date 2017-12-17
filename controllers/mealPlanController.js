@@ -40,8 +40,6 @@ exports.getMealPlan = (req, res) => {
     .then((doc) => {
       if (doc) {
         res.status(200).send(doc);        
-      } else {
-        res.status(200).send({});
       }
     })
     .catch((err) => {
@@ -74,17 +72,34 @@ exports.restoreUnusedFoodItems = (req, res, next) => {
             return ingredient;
           })
         }))
-        console.log("restore ingredients: ", ingredients);
+        console.log("restore foodItems: ", ingredients);
         function restoreItem(i) {
           return new Promise((resolve, reject) => {
             FoodItem.findOneAndUpdate({
-              ingredient: i.id
+              ingredient: i.id,
+              user: userID
             }, {
-                $inc: {
-                  quantity: +i.portionSize
+
+              $inc: {
+                quantity: +i.portionSize
+              }
+            }, {
+                new: true
+              })
+              .then((doc) => {
+                if (!doc) {
+                  return
+                } else if (doc.quantity === 0) {
+                  console.log("delete this doc: ", doc);
+                  doc.remove();
                 }
-              }).then(() => resolve("updated item :)"))
-              .catch(() => reject("issue with updating item :("))
+              })
+              .then(() => resolve("updated item :)"))
+              // TODO: if restoration quantity results to be zero, then remove the fooditem
+              .catch((err) => { 
+                console.log(err);
+                reject("issue with updating item :(")
+              })
           })
         }
         let updateAll = [];
@@ -117,8 +132,6 @@ exports.updateMealPlan = (req, res, next) => {
     // adding the _id of the recipes to the key "day" of the document
     doc[day] = mealArray;
     doc.save().then((saved) => {
-      // req.mealPlanDay = saved[day]
-      console.log("the meal plan has been saved!");
       res.status(200).send(saved)
       next();
     })
@@ -143,15 +156,11 @@ exports.updateFoodItems = (req, res, next) => {
     }
   })
   .then((docs) => {
-    // take the ingredients and portionSizes from those days and 
+    // take the ingredients and portionSizes from recipes used in req.params.day and 
     // push them into flattened array
-    let flattenedArray = []
-
-    // Why is _.flatten returning undefined values?
     const ingredients = _.flatten(docs.map(doc => {
       return doc.ingredients.map(i => {
         const ingredient = { id: i.ingredient, portionSize: i.portionSize };
-        // flattenedArray.push(ingredient);
         return ingredient;
       })
     }))
@@ -159,20 +168,27 @@ exports.updateFoodItems = (req, res, next) => {
     // function to update the foodItems used the recipes or insert if non already exists
     function updateItem(i) {
       return new Promise((resolve, reject) => {
+        const portionUpsert = 1 - i.portionSize;
+        console.log(portionUpsert);
         FoodItem.findOneAndUpdate({
           ingredient: i.id,
           user: userID
         }, {
-          $set: { ingredient: i.id, user: userID, expiry: null },
+          $setOnInsert: {
+            user: userID, 
+            ingredient: i.id, 
+            expiry: null,
+          },
           $inc: {
             quantity: -i.portionSize
           }
         },
         {
-          upsert: true
-        }
-      ).then(()=> resolve("updated item :)"))
-          .catch(()=> reject("issue with updating item :("))
+          upsert: true,
+          setDefaultsOnInsert: true,
+        })
+        .then(()=> resolve("item update successful :)"))
+        .catch((err)=> reject(err))
       })
     }
 
@@ -183,7 +199,7 @@ exports.updateFoodItems = (req, res, next) => {
     // wait until all the food items used in the recipes have been updated
     Promise.all(updateAll)
       .then(()=> console.log("they're all saved!"))
-      // trigger next to then move on and update the "meal plan" document
+      // trigger next to move on and update the "meal plan" document
       .then(()=> next())
   })
 }

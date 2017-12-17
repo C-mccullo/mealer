@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import moment from "moment";
 import DatePicker from "react-datepicker";
-import { Switch } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 
 // Routes
 import HomeRoute from "./react-routes/HomeRoute";
 import LoginRoute from "./react-routes/LoginRoute";
 import SignUpRoute from "./react-routes/SignUpRoute";
 import AddIngredientRoute from "./react-routes/AddIngredientRoute";
+import AddIngredientFormRoute from "./react-routes/AddIngredientFormRoute";
+import AddRecipeFormRoute from "./react-routes/AddRecipeFormRoute"
 import AddRecipeRoute from "./react-routes/AddRecipeRoute";
 import MealPlanRoute from "./react-routes/MealPlanRoute";
 
@@ -48,9 +50,10 @@ class Main extends Component {
         // mealPlanId : ID
         // recipes: []
       },
-      loggedIn: false
+      loggedIn: false,
+      modalOpen: false
     }
-
+   
     this.loadData = this.loadData.bind(this);
     this.getUserDetails = this.getUserDetails.bind(this);
     this.fetchAllUserData = this.fetchAllUserData.bind(this);
@@ -64,7 +67,7 @@ class Main extends Component {
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.fetchMealPlan = this.fetchMealPlan.bind(this);
   }
-
+  
   componentDidMount() {
     this.loadData(this.getUserDetails);
   }
@@ -298,6 +301,19 @@ class Main extends Component {
               deleteFood={ this.deleteFood } isLoggedIn={ this.state.loggedIn }
             />
 
+            <AddIngredientFormRoute exact path="/inventory/addfood" inventory={this.state.inventory}
+              fetchFoods={this.fetchFoods} fetchIngredients={this.fetchIngredients}
+              deleteFood={this.deleteFood} isLoggedIn={this.state.loggedIn}
+              modalIsOpen={this.modalOpen}
+            />
+
+            <AddRecipeFormRoute exact path="/recipes/addrecipe" 
+              fetchIngredients={this.fetchIngredients} fetchRecipes={this.fetchRecipes} fetchFoods={this.fetchFoods} recipes={this.state.recipes}
+              deleteRecipe={this.deleteRecipe} isLoggedIn={this.state.loggedIn}
+              ingredientList={this.state.ingredients}
+              modalIsOpen={this.modalOpen}
+            />
+
             <AddRecipeRoute path="/recipes" ingredientList={ this.state.ingredients }
               fetchIngredients={ this.fetchIngredients } fetchRecipes={ this.fetchRecipes } fetchFoods={ this.fetchFoods } recipes={ this.state.recipes } 
               deleteRecipe={ this.deleteRecipe } isLoggedIn={ this.state.loggedIn }
@@ -308,6 +324,7 @@ class Main extends Component {
               fetchMealPlan={ this.fetchMealPlan } postMealPlan={ this.postMealPlan }
               isLoggedIn={ this.state.loggedIn } 
             />
+            <Redirect from='*' to='/' />
           </Switch>
         </div>
         <Footer/>

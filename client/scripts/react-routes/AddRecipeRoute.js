@@ -1,5 +1,6 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Link } from "react-router-dom";
+// import AddRecipeFormTypeAhead from "../components/AddRecipeFormTypeAhead";
 import AddRecipeForm from "../components/AddRecipeForm";
 import RecipeList from "../components/RecipeList";
 
@@ -8,10 +9,11 @@ const AddRecipeRoute = (props) => {
     <Route { ...props } render={() => (
       props.isLoggedIn ? (
         <div>
-          <AddRecipeForm ingredientList={props.ingredientList} 
-            fetchRecipes={props.fetchRecipes} fetchFoods={props.fetchFoods} 
+          <Link className="addFormLink" to="/recipes/addrecipe">Make a New Recipe</Link>
+          {/* <AddRecipeForm ingredientList={props.ingredientList}
+            fetchRecipes={props.fetchRecipes} fetchFoods={props.fetchFoods}
             fetchIngredients={props.fetchIngredients}
-          />
+          /> */}
           <RecipeList deleteRecipe={props.deleteRecipe} recipes={props.recipes} />
         </div>
       ) : (
@@ -19,7 +21,6 @@ const AddRecipeRoute = (props) => {
       )
     )}
     />
-
   )
 }
 

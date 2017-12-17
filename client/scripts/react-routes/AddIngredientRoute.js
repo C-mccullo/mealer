@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Link } from "react-router-dom";
 import AddFoodForm from "../components/AddFoodForm";
 import InventoryList from "../components/InventoryList";
 import FilterBar from "../components/FilterBar";
@@ -10,10 +10,10 @@ const AddIngredientRoute = (props) => {
       props.isLoggedIn ? (
         <div>
           {/* ADD TYPEAHEAD */}
-          <FilterBar/>       
-          <AddFoodForm fetchFoods={ props.fetchFoods } 
+          <Link className="addFormLink" to="/inventory/addfood">Add Foods</Link>  
+          {/* <AddFoodForm fetchFoods={ props.fetchFoods } 
             fetchIngredients={ props.fetchIngredients }
-          />
+          /> */}
           <InventoryList inventory={ props.inventory } deleteFood ={ props.deleteFood } fetchFoods={ props.fetchFoods } fetchIngredients={ props.fetchIngredients }/>
         </div>
       ) : (

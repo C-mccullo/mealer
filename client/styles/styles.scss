@@ -99,14 +99,25 @@ body {
   max-width: 1200px;
 }
 
+body.modalOpen {
+  position:relative;
+  overflow: hidden;
+}
+
 .mainContainer {
   min-height: 100vh;
   overflow: hidden;
 }
 
+.footer {
+  h2 {
+    font-weight: 100;
+  }
+  padding: 20px;
+  margin-top: 60px;
+}
 
-
-.header {
+.header, .footer {
   background-color: $dark;
   color: white;
   position: relative;
@@ -176,10 +187,11 @@ body {
 }
 
 .inventoryItem {
+  position: relative;
   width: 250px;
   border-radius: 2px;
   background-color: $light-background;
-  padding: 5px 10px;
+  padding: 15px 10px 5px;
   margin: 10px 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
   @include xs {
@@ -188,30 +200,112 @@ body {
   }
 }
 
-.inventoryItem-name {
-  text-transform: capitalize;
+.inventoryItem-banner {
+  position: absolute;
+  top: 12px;
+}
+
+.inventoryItem-used {
+  box-shadow: 0 3px 6px rgba(41, 171, 164, 0.30), 0 1px 6px rgba(41, 171, 164, 0.5);
+  .inventoryItem-banner {
+    color: $primary;
+  }
+}
+
+.inventoryItem-toBuy {
+  box-shadow: 0 3px 6px rgba(0, 113, 188, 0.30), 0 1px 6px rgba(0, 113, 188, 0.5);
+  .inventoryItem-banner {
+    color: $tertiary-light;
+  }
+}
+
+.inventoryItem-header {
   background-color: $med-dark;
   padding: 10px;
+  margin-top: 20px;
+  .inventoryItem-name {
+    display: inline-block;
+    margin: 0;
+    text-transform: capitalize;
+    width: 75%;
+  }
+  .inventoryItem-quantity {
+    display: inline-block;
+    text-align: center;
+    width: 25%;
+  }
+}
+
+.inventoryItem-header-used {
+  background-color: rgba(41, 171, 164, 0.2);
+}
+
+.inventoryItem-header-toBuy {
+  background-color: rgba(119, 197, 247, 0.2);
 }
 
 .inventoryItem-expiry {
+  min-height: 16px;
+  margin-bottom: 5px;
   font-size: 14px;
 }
 
 span.deleteItem {
+  position: absolute;
+  top: 10px;
+  right: 15px;
   cursor: pointer;
   color: $secondary;
+}
+
+.paleBackground-wrapper {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(251, 249, 247, 0.7);
+  padding-top: 75px;
+  overflow-Y: scroll; 
+}
+
+a.addFormLink {
+  color: $secondary;
+  font-family: 'Lobster', cursive;
+  letter-spacing: 2px;
+  padding-left: 50px;
+  font-size: 26px;
+  padding-top: 15px;
+  display: block;
 }
 
 form.form {
   max-width: 375px;
   background-color: $light-background;
-  margin: 20px 0px; 
+  margin: 20px auto; 
   padding: 30px 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
   border-radius: 2px;
+  position: relative;
+  .form-close {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: $secondary;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+  }
   .form-label {
     padding-left: 0px;
+  }
+  .form-select {
+    padding: 10px 15px;
+    border: 1px solid $dark;
+    -webkit-appearance: none;
+    min-width: 250px;
+    border-radius: 0px;
   }
   .form-input {
     width: 100%;
@@ -222,11 +316,6 @@ form.form {
     background-color: $light-background;
   }
 }
-
-// MODAL
-// 👉 APPLY TO BODY WHEN MODAL OPEN
-// position:relative;
-// overflow: hidden;
 
 .modal {
   position: fixed;
@@ -332,7 +421,6 @@ form.form {
 }
 
 // HOME VIEW
-
 .homeContainer {
   margin: 60px;
 }

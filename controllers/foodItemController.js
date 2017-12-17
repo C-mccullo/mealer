@@ -4,7 +4,7 @@ const Ingredient = require("../models/IngredientModel");
 
 exports.getFoods = (req, res) => {
   const userID = req.user._id;
-  // TODO: If no FoodItems for current user, send 204 status
+  // If no FoodItems for current user, send 204 status
   FoodItem.find({ user: userID }).populate('ingredient').then((docs) => {
     res.status(200).send(docs);
   })
@@ -17,7 +17,13 @@ exports.postFoods = (req, res) => {
   // post foodItem once checkIngredientExists middleware determines if Ingredient exists
   console.log("postfoods", req.body);
   const userID = mongoose.Types.ObjectId(req.user._id);
-  const foodItem = new FoodItem({ expiry: req.body.expiry, quantity: req.body.quantity, portions: req.body.portions, ingredient: req.body.ingredientID, user: userID });
+  const foodItem = new FoodItem({ 
+    expiry: req.body.expiry, 
+    quantity: req.body.quantity, 
+    portions: req.body.portions, 
+    ingredient: req.body.ingredientID, 
+    user: userID 
+  });
   foodItem.save()
     .then((doc) => {
       res.status(200).send(doc);
@@ -29,12 +35,15 @@ exports.postFoods = (req, res) => {
 
 // Add middleware to check the for an Ingredient name for the FoodItem being posted exists
 exports.checkIngredientExist = (req, res, next) => {
+  const userID = mongoose.Types.ObjectId(req.user._id);
   const foodItem = req.body;
   const foodItemName = foodItem.name.trim().toLowerCase();
   // will create a new ingredient with the name of req.body.name if does not already exist
   Ingredient.findOneAndUpdate({
-    name: foodItemName
-  }, { name: foodItemName },
+    name: foodItemName,
+  }, { 
+    $setOnInsert: { name: foodItemName } 
+  },
   {
     upsert: true, 
     new: true
@@ -55,6 +64,7 @@ exports.checkByExpiry = ( req, res ) => {
   if (typeof(expiry) === "string" && expiry.length === 0) { expiry = null; }
   FoodItem.findOneAndUpdate({
     ingredient: ingredientID,
+    user: userID,
     expiry: expiry
   }, 
   {

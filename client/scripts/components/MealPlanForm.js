@@ -9,6 +9,8 @@ class MealPlanForm extends Component {
       recipeArray: [],
       isModalOpen: false
     }
+    this.addBodyClass = this.addBodyClass.bind(this);
+    this.removeBodyClass = this.removeBodyClass.bind(this);
     this.baseState = this.state;
     this.resetForm = this.resetForm.bind(this);
     this.openModal = this.openModal.bind(this);
@@ -18,6 +20,14 @@ class MealPlanForm extends Component {
     this.removeRecipe = this.removeRecipe.bind(this);
     this.changeDaySelected = this.changeDaySelected.bind(this);
     this.submitMeal = this.submitMeal.bind(this);
+  }
+
+  addBodyClass() {
+    document.querySelector("#react-container").classList.add("modalOpen");
+  }
+
+  removeBodyClass() {
+    document.querySelector("#react-container").classList.remove("modalOpen");
   }
 
   resetForm() {
@@ -79,30 +89,37 @@ class MealPlanForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={e => this.submitMeal(e)}>
-          <h2>MealPlanForm</h2>
-          <select name="day" value={ this.state.currentSelectValue } onChange={ e => this.changeDaySelected(e) }>
-            <option value="" defaultValue disabled hidden>Choose a day</option>
-            <option value="monday">Monday</option>
-            <option value="tuesday">Tuesday</option>
-            <option value="wednesday">Wednesday</option>
-            <option value="thursday">Thursday</option>
-            <option value="friday">Friday</option>
-            <option value="saturday">Saturday</option>
-            <option value="sunday">Sunday</option>
-          </select>
-          <ul className="recipe-Ingredients">
-            {this.state.recipeArray ? this.mapRecipes() : null}
-          </ul>
-          <MealPlanModal isModalOpen={ this.state.isModalOpen } 
-            closeModal={this.closeModal} 
-            recipes={ this.props.recipes }
-            recipeArray = { this.state.recipeArray } 
-            addRecipe={ this.addRecipe }
-            removeRecipe={ this.removeRecipe }
-          />
-          <button type="button" onClick={ this.openModal }>Add Recipes</button>
-          <button type="submit">Add to Meal Plan</button>
+        { this.state.isModalOpen ? this.addBodyClass() : this.removeBodyClass() }
+        <form className="form" onSubmit={e => this.submitMeal(e)}>
+          {/* onClick push to /recipes */}
+          <button className="form-close">X</button>
+          <div className="form-row">
+            <h2>MealPlanForm</h2>
+            <select className="form-select" name="day" value={ this.state.currentSelectValue } onChange={ e => this.changeDaySelected(e) }>
+              <option value="" defaultValue disabled hidden>Choose a day</option>
+              <option value="monday">Monday</option>
+              <option value="tuesday">Tuesday</option>
+              <option value="wednesday">Wednesday</option>
+              <option value="thursday">Thursday</option>
+              <option value="friday">Friday</option>
+              <option value="saturday">Saturday</option>
+              <option value="sunday">Sunday</option>
+            </select>
+            <ul className="recipe-Ingredients">
+              {this.state.recipeArray ? this.mapRecipes() : null}
+            </ul>
+            <MealPlanModal isModalOpen={ this.state.isModalOpen } 
+              closeModal={this.closeModal} 
+              recipes={ this.props.recipes }
+              recipeArray = { this.state.recipeArray } 
+              addRecipe={ this.addRecipe }
+              removeRecipe={ this.removeRecipe }
+            />
+            <button className="button button-blue" type="button" onClick={ this.openModal }>Add Recipes</button>
+          </div>
+          <div className="form-row">
+            <button className="button button-green" type="submit">Add to Meal Plan</button>
+          </div>
         </form>
       </div>
     )

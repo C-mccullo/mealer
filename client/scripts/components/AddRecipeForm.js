@@ -141,10 +141,10 @@ class AddRecipeForm extends Component {
   render() {
     return (
       // Should this be a form?
-      <form onSubmit={ e => this.submitRecipe(e) }>
+      <form className="form" onSubmit={ e => this.submitRecipe(e) }>
         <h2>Recipe Form</h2>
         <div className="form-row">
-          <input onChange={this.handleChange} name="name" required type="text" placeholder="Enter Recipe Name" value={this.state.name} />
+          <input className="form-input" onChange={this.handleChange} name="name" required type="text" placeholder="Enter Recipe Name" value={this.state.name} />
           <ul className="recipe-Ingredients">
             { this.state.ingredients ? this.mapIngredients() : null }
           </ul>
@@ -158,7 +158,7 @@ class AddRecipeForm extends Component {
             incrementPortion={ this.incrementPortion }
             decrementPortion={ this.decrementPortion }
           />
-          <button type="button" onClick={ e => this.openModal(e) }>Add Ingredients</button>
+          <button type="button button-blue" onClick={ e => this.openModal(e) }>Add Ingredients</button>
         </div>
         <div className="form-row">
           <button type="submit">Finish Recipe</button>

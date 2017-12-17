@@ -12,16 +12,19 @@ const FoodItemSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Ingredient"
   },
-  expiry: String,
+  expiry: { 
+    type: String,
+    default: null,
+  },
   quantity: {
     type: Number,
     default: 1,
-    required: "Please add a quantity for your food items"
+    required: [true, "Please add a quantity for your food items"]
   },
   portions: {
     type: Number,
     default: 1,
-    required: "Please add portion sizes for your food items"
+    required: [true, "Please add portion sizes for your food items" ]  
   }
 });
 

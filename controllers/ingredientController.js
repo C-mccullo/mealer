@@ -13,6 +13,7 @@ exports.getIngredients = (req, res) => {
 
 exports.searchIngredients = (req, res) => {
   const ingredient = req.query.ingredient;
+  // TODO: set up conditional for empty query
   const RegExpIngredient = new RegExp(`(?=${ingredient}*)+\\w+`, "gi");
   Ingredient.find({
     name: {
