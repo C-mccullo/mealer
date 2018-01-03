@@ -199,7 +199,7 @@ exports.updateFoodItems = (req, res, next) => {
     // wait until all the food items used in the recipes have been updated
     Promise.all(updateAll)
       .then(()=> console.log("they're all saved!"))
-      // trigger next to move on and update the "meal plan" document
+      // trigger next to move on and to updateMealPlan controller
       .then(()=> next())
   })
 }

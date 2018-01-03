@@ -9,6 +9,7 @@ const AddIngredientRoute = (props) => {
     <Route { ...props } render={() => (
       props.isLoggedIn ? (
         <div>
+          <Link disabled className="addFormLink" to="/inventory/addfood">Add Foods</Link>  
           <div className="paleBackground-wrapper">
             <AddFoodForm fetchFoods={ props.fetchFoods } 
               fetchIngredients={ props.fetchIngredients }

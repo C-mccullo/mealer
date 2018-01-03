@@ -25,7 +25,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredientList: [],
+      // ingredientList: [],
       inventory: [
         // name: String
         // quantity: Number
@@ -100,10 +100,10 @@ class Main extends Component {
             this.setState({
               currentUser: userData,
               loggedIn: true,
-              ingredients: values[0],
-              inventory: values[1],
-              recipes: values[2],
-              weekMealPlan: values[3]
+              // ingredients: values[0],
+              inventory: values[0],
+              recipes: values[1],
+              weekMealPlan: values[2]
             })
           })
           .then(() => this.props.history.push("/inventory"))
@@ -123,10 +123,10 @@ class Main extends Component {
   }
 
   fetchAllUserData() {
-    const ingredients = fetch("/api/ingredientList", {
-      method: "GET",
-      credentials: "include"
-    });
+    // const ingredients = fetch("/api/ingredientList", {
+    //   method: "GET",
+    //   credentials: "include"
+    // });
     const foods = fetch("/api/foods", {
       method: "GET",
       credentials: "include"
@@ -139,7 +139,7 @@ class Main extends Component {
       method: "GET",
       credentials: "include"
     });
-    const allPromises = [ingredients, foods, recipes, mealPlan];
+    const allPromises = [ /* ingredients, */ foods, recipes, mealPlan];
     return allPromises;
   }
 
@@ -230,11 +230,17 @@ class Main extends Component {
   deleteFood(id) {
     // TODO: if food is deleted but is still in active recipes ingredients
     // do not delete from inventory, set to "need to buy"
-    fetch(`/api/foods/${id}`, {
-      method: "DELETE",
-      credentials: "include"
-    })
-      .then(() => this.fetchFoods());
+    const confirmed = confirm("are you sure you want to delete this food item?");
+
+    if (confirmed) {
+      fetch(`/api/foods/${id}`, {
+        method: "DELETE",
+        credentials: "include"
+      })
+        .then(() => this.fetchFoods());
+    } else {
+      return
+    }
   };
 
   fetchRecipes() {
@@ -249,11 +255,17 @@ class Main extends Component {
   deleteRecipe(id) {
     // If recipe is deleted but is still being used during the week, 
     // send alert that recipe is still in use
-    fetch(`/api/recipes/${id}`, {
-      method: "DELETE",
-      credentials: "include"
-    })
-      .then(() => this.fetchRecipes());
+    const confirmed = confirm("are you sure you want to delete this recipe?");
+
+    if (confirmed) {
+      fetch(`/api/recipes/${id}`, {
+        method: "DELETE",
+        credentials: "include"
+      })
+        .then(() => this.fetchRecipes());
+    } else {
+      return
+    }
   };
 
   fetchMealPlan() {

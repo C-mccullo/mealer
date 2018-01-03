@@ -38,7 +38,7 @@ class AddRecipeFormTypeAhead extends Component {
       .then(res => res.json())
       .then(json => {
         this.setState({ options: json, isLoading: false });
-        console.log(this.state.options);
+        // console.log(this.state.options);
       })
   }
 
@@ -114,7 +114,6 @@ class AddRecipeFormTypeAhead extends Component {
     const ingredientList = ingredientArray.map((item) => {
       if (item._id === id) {
         const updateItem = Object.assign({}, item);
-        console.log("", item);
         updateItem["portionSize"] += 1;
         return updateItem;
       }
@@ -148,7 +147,6 @@ class AddRecipeFormTypeAhead extends Component {
     // console.log("AddRecipeForm state: ", this.state.ingredients)
     return (
       this.state.ingredients.map((item) => {
-        // return <li key={`ingredient-${ingredient._id}`}>{ingredient.name}</li>
         return (
           <div className="ingredient" key={`ingredient-${item._id}`}>
             <label htmlFor={`ingredient-${item._id}`}

@@ -5,12 +5,19 @@ const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const notify = require('gulp-notify');
 const sass = require('gulp-sass');
+const postcss = require('gulp-postcss');
+const autoprefixer = require("autoprefixer");
 const plumber = require('gulp-plumber');
 const concat = require('gulp-concat');
 
 gulp.task('styles', () => {
+    // stored in array incase more postcss plugins desired
+    const processors = [
+        autoprefixer
+    ]
     return gulp.src('./client/styles/styles.scss')
         .pipe(sass().on('error', sass.logError))
+        .pipe(postcss(processors))
         .pipe(concat('style.css'))
         .pipe(gulp.dest('./public'));
 });

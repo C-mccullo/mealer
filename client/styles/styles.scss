@@ -380,6 +380,57 @@ form.form {
 
 .recipe {
   @extend .inventoryItem;
+  padding-bottom: 20px;
+  h3 {
+    text-transform: capitalize;
+  }
+  ul {
+    padding-left: 10px;
+  }
+}
+
+.recipeItem-header {
+  margin-top: 5px;
+  padding: 10px;
+  background-color: $med-background;
+  h3 { 
+    margin: 5px 0px 0px 0px;
+  }
+}
+
+.recipeIngredient {
+  position: relative;
+  z-index: 2;
+  margin-top: 3px;
+  .recipeIngredient-name {
+    z-index: 3;
+    background-color: $light-background;
+    padding: 0px 5px 5px 0px;
+    position: relative;
+  }
+  .recipeIngredient-portion {
+    position: absolute;
+    right: 10px;
+    width: 10px;
+    text-align: center;
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      min-width: 140px;
+      max-width: 300px;
+      right: calc(100% + 5px);
+      height: calc(100% - 4px);
+      border-bottom: 1px dotted $dark;
+    }
+  }
+}
+
+.deleteRecipe {
+  color: $secondary;
+  position: absolute;
+  bottom: 10px;
+  cursor: pointer;
 }
 
 .recipeIncrementer {
