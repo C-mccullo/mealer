@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 
-class LoginModal extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // name: "",
+      name: "",
       email: "",
-      password: "",
+      password: ""
     }
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const user = Object.assign({}, this.state);
-    this.props.login(user);
+    const newUser = Object.assign({}, this.state);
+    this.props.signup(newUser);
   }
 
   handleChange(e) {
@@ -27,25 +28,28 @@ class LoginModal extends Component {
 
   render() {
     return (
-      <div className="login">
+      <div>
+        <div className="login">
           <form className="form" onSubmit={this.handleSubmit}>
             <div className="form-row">
-              <h1>Log In</h1>
-              {/* <label htmlFor="name">User Name:</label>
-              <input name="name" className="loginModal-input" type="text" required
-                onChange={this.handleChange} /> */}
-              <label className="form-label" htmlFor="email">User Email:</label>
+              <h1>Sign Up</h1>
+              <label htmlFor="name">User Name:</label>
+              <input name="name" className="form-input" type="text" required
+                onChange={this.handleChange} />
+              <label htmlFor="email">User Email:</label>
               <input name="email" className="form-input" type="email" required
                 onChange={this.handleChange} />
-              <label className="form-label" htmlFor="password">Password:</label>
+              <label htmlFor="password">Password:</label>
               <input name="password" className="form-input" type="password" required
                 onChange={this.handleChange} />
-              <input className="button button-blue" type="submit" value="Submit" />
+              <input className="button button-green" type="submit" value="Submit" />
             </div>
           </form>
+        </div>
       </div>
     )
   }
 }
 
-export default LoginModal;
+
+export default SignUp

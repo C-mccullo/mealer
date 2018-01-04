@@ -298,7 +298,8 @@ class Main extends Component {
     return(
       <div className="main">
         <HeaderWithRouter history={ this.props.history } login={ this.login } 
-          logout={ this.logout } loggedIn={ this.state.loggedIn }
+          logout={ this.logout } loggedIn={ this.state.loggedIn } 
+          currentUser={this.state.currentUser}
         />
         <div className="mainContainer">
           <Switch>

@@ -32,7 +32,7 @@ exports.newUserMealPlan = (req, res, next) => {
 
 exports.getMealPlan = (req, res) => {
   const userID = req.user._id;
-  console.log("meal Controller; ", userID);
+  // console.log("meal Controller; ", userID);
   // excluding _id, __v and user from the response object
   MealPlan.findOne({user: userID }, {_id: 0, __v: 0, user: 0})
     .populate("monday tuesday wednesday thursday friday saturday sunday")
@@ -57,7 +57,7 @@ exports.restoreUnusedFoodItems = (req, res, next) => {
       const recipeIds = recipes.map(id => {
         return mongoose.Types.ObjectId(id)
       })
-      console.log("restore recipeIds: ", recipeIds)
+      // console.log("restore recipeIds: ", recipeIds)
       // then find the recipes used on that day and get recipes ingredients
       Recipe.find({
         _id: {
@@ -65,7 +65,7 @@ exports.restoreUnusedFoodItems = (req, res, next) => {
         }
       })
       .then((docs) => {
-        console.log("recipes found: ", docs);
+        // console.log("recipes found: ", docs);
         const ingredients = _.flatten(docs.map((doc) => {
           return doc.ingredients.map((i) => {
             const ingredient = { id: i.ingredient, portionSize: i.portionSize };
@@ -90,7 +90,7 @@ exports.restoreUnusedFoodItems = (req, res, next) => {
                 if (!doc) {
                   return
                 } else if (doc.quantity === 0) {
-                  console.log("delete this doc: ", doc);
+                  // console.log("delete this doc: ", doc);
                   doc.remove();
                 }
               })
@@ -169,7 +169,7 @@ exports.updateFoodItems = (req, res, next) => {
     function updateItem(i) {
       return new Promise((resolve, reject) => {
         const portionUpsert = 1 - i.portionSize;
-        console.log(portionUpsert);
+        // console.log("portionUpsert", portionUpsert);
         FoodItem.findOneAndUpdate({
           ingredient: i.id,
           user: userID

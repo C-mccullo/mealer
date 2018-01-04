@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const passport = require("passport")
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const router = require("./routes/index");
 
 // Controllers
 const userController = require("./controllers/userController");
@@ -49,85 +50,7 @@ app.use(express.static('public'));
 app.use(express.static('assets'));
 
 // API ROUTES that have precedence over the wildcard route below
-
-// USERS
-app.get("/api/getme", userController.checkUser);
-
-app.get('/api/users', (req, res) => {
-  User.find()
-    .then((docs) => res.send(docs));
-});
-
-app.post("/api/signup", 
-  userController.sanitizeUser,
-  userController.registerUser,
-  passport.authenticate("local"), 
-  mealPlanController.newUserMealPlan,
-  userController.sendUser
-);
-
-app.post("/api/login", 
-  passport.authenticate("local"),
-  userController.sendUser
-);
-
-app.get("/api/logout", userController.logoutUser);
-
-// INGREDIENTS LIST 
-app.get("/api/ingredientList", ingredientController.getIngredients);
-
-app.get("/api/search/ingredientList", ingredientController.searchIngredients);
-
-app.post("/api/ingredientList", 
-  userController.isAuthorized,
-  ingredientController.postIngredient
-);
-
-// INVENTORY
-app.get("/api/foods", 
-  userController.isAuthorized,
-  foodItemController.getFoods
-);
-
-app.post("/api/foods/",
-  userController.isAuthorized,
-  foodItemController.checkIngredientExist, 
-  foodItemController.checkByExpiry
-);
-
-app.delete("/api/foods/:id", 
-  userController.isAuthorized,
-  foodItemController.deleteFood
-);
-
-// RECIPES
-app.get("/api/recipes", 
-  userController.isAuthorized,
-  recipeController.getRecipes
-);
-
-app.post("/api/recipes", 
-  userController.isAuthorized,
-  recipeController.postRecipe
-);
-
-app.delete("/api/recipes/:id", 
-  userController.isAuthorized,
-  recipeController.deleteRecipe
-);
-
-// MEAL PLAN
-app.get("/api/mealPlan", 
-  userController.isAuthorized,
-  mealPlanController.getMealPlan
-);
-
-app.put("/api/mealPlan/:day",
-  userController.isAuthorized,
-  mealPlanController.restoreUnusedFoodItems,
-  mealPlanController.updateFoodItems,
-  mealPlanController.updateMealPlan
-);
+app.use('/', router);
 
 // This wildcard route serves your index.html file (which
 // initializes React)
@@ -136,6 +59,6 @@ app.get('*', function(req, res, next) {
 });
 
 // Start your server, and listen on port 8080.
-app.listen(8080, function() {
-  console.log("App is now listening on port 8080!");
+app.listen(process.env.PORT, function() {
+  console.log(`App is now listening on port ${process.env.PORT}!`);
 })

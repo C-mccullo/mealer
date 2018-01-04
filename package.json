@@ -29,10 +29,7 @@
     "react-bootstrap-typeahead": "^2.0.0",
     "react-datepicker": "^0.60.2",
     "react-dom": "^15.6.1",
-    "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "react-router-redux": "^4.0.8",
-    "redux": "^3.7.2",
     "validator": "^9.1.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
@@ -43,6 +40,7 @@
     "gulp-postcss": "^7.0.1"
   },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Simon Bloom and Ryan Brunner",

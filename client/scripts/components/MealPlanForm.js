@@ -91,8 +91,7 @@ class MealPlanForm extends Component {
       <div>
         { this.state.isModalOpen ? this.addBodyClass() : this.removeBodyClass() }
         <form className="form" onSubmit={e => this.submitMeal(e)}>
-          {/* onClick push to /recipes */}
-          <button className="form-close">X</button>
+          {/* <button className="form-close">X</button> */}
           <div className="form-row">
             <h2>MealPlanForm</h2>
             <select className="form-select" name="day" value={ this.state.currentSelectValue } onChange={ e => this.changeDaySelected(e) }>

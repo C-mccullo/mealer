@@ -21,6 +21,9 @@ const Header = (props) => {
           </ul>
           <ul className="navBar-list navBar-list_right">
             <li className="navBar-link">
+              <span>Welcome, {props.currentUser.name}</span>
+            </li>
+            <li className="navBar-link">
               <a role="button" className="navBar-logout"
                 onClick={() => props.logout(props.history)}
               >Log Out</a>
