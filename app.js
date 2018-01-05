@@ -21,7 +21,9 @@ const mealPlanController = require("./controllers/mealPlanController");
 // Models
 const User = require("./models/UserModel");
 
-mongoose.connect("mongodb://localhost/meal-planner");
+mongoose.connect(process.env.DATABASE, {
+  useMongoClient: true,
+});
 
 // tells passport which type of strategy to expect for the User authentication
 passport.use(User.createStrategy());

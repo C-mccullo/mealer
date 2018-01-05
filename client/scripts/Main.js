@@ -86,8 +86,8 @@ class Main extends Component {
       .then((userData) => {
         const userId = userData._id;
         if (userId) {
-          console.log("userData recieved: ", userData);
-          // 🔥 output of promise.all is strictly ordered if the input
+          // console.log("userData recieved: ", userData);
+          // 🔥 output of promise.all is strictly ordered if the input array
           // is strictly ordered. Each resolved promise has internal index slot 
           // which marks the index of the promise in the input 🔥
           const fetchArray = this.fetchAllUserData(); 
