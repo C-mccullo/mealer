@@ -1,0 +1,65 @@
+// FORM
+a.addFormLink {
+  position: relative;
+  color: $secondary;
+  font-family: 'Lobster', cursive;
+  letter-spacing: 2px;
+  padding-left: 50px;
+  font-size: 26px;
+  margin-top: 15px;
+  display: block;
+  &::before {
+    content: "";
+    position: absolute;
+    background: url("/add.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+form.form h1,
+form.form h2 {
+  margin-top: 0px;
+}
+
+form.form {
+  max-width: 375px;
+  background-color: $light-background;
+  margin: 20px auto;
+  padding: 30px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 2px;
+  position: relative;
+  .form-close {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: $secondary;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+  }
+  .form-label {
+    padding-left: 0px;
+  }
+  .form-select {
+    padding: 10px 15px;
+    border: 1px solid $dark;
+    -webkit-appearance: none;
+    min-width: 250px;
+    border-radius: 0px;
+  }
+  .form-input {
+    width: 100%;
+    display: block;
+    margin: 5px 0px 10px;
+    padding: 5px;
+    border: 1px solid $dark;
+    background-color: $light-background;
+  }
+}

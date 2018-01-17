@@ -1,0 +1,142 @@
+.header, .footer {
+  background-color: $dark;
+  color: white;
+  position: relative;
+  &:before {
+    background-color: $dark;
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    right: 100%;
+  }
+  &:after {
+    background-color: $dark;
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 100%;
+  }
+  div.navBar-menu_wide {
+    display: inline-block;
+    @include sm {
+      display: none;
+    }
+  }
+  div.navBar-menu_mobile {
+    display: none;
+    @include sm {
+      display: block
+    }
+  }
+  div.navBar-menu_mobile {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    margin: 20px 0;
+    a {
+      display: block;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      padding: 7px 0px;
+    }
+    svg.hamburgerMenu-icon {
+      height: 24px;
+      width: 24px;
+      fill: $light-background;
+    }
+  }
+
+  ul.navBar-list_mobile {
+    // display: none;
+    &.open {
+      @include sm {
+        // display: block;
+        visibility: visible;
+        opacity: 1;
+        z-index: 5;
+        transform: translateY(0%);
+        transition-delay: 0s, 0s, 0.3s;
+      }
+    }
+  }
+
+  ul.navBar-list_mobile {
+    padding-left: 0px;
+    // position: absolute;
+    z-index: 5;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin: 0px;
+    background: $med-dark;
+    visibility: hidden;
+    opacity: 0;
+    width: 100%;
+    // transform: translateY(-2em);
+    // z-index: -1;
+    transition: all 0.3s ease-in-out 0s,
+    visibility 0s linear 0.3s,
+    z-index 0s linear 0.01s;
+  }
+  li.navBar-link_mobile {
+    color: $light-background;
+    padding: 0px 0px;
+    text-align: center;
+    border-top: 1px solid $background;
+    a {
+      display: inline-block;
+      width: 100%;
+      padding: 10px 10px;
+      &.activeLink {
+        color: $tertiary-light;
+      }
+      &:active {
+        color: $tertiary-light;
+        background-color: $med-background;
+      }
+    }
+  }
+
+  ul.navBar-list {
+    display: inline-block;
+  }
+  ul.navBar-list_right {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
+  li.navBar-link {
+    display: inline-block;
+    padding: 10px 20px;
+    a {
+      padding: 5px 10px;
+      border: 1px solid $dark;
+      &:hover {
+        border: 1px solid $primary;
+      }
+    }
+    a.activeLink {
+      color: $light-background;
+      background-color: $primary;
+      border: 1px solid $primary;
+    }
+    a.navBar-login {
+      color: $light-background;
+      border: 1px solid $tertiary-light;
+    }
+    a.navBar-signup {
+      color: $light-background;
+      border: 1px solid $primary;
+    }
+    a.navBar-logout {
+      color: $light-background;
+      border: 1px solid $secondary-light;
+    }
+  }
+}

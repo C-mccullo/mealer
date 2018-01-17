@@ -16,6 +16,11 @@ const MealPlanList = (props) => {
               }) 
               }
             </ul>
+            {/* <div>
+              <div className="mealListAddition-wrapper clearfix">
+                <button className="mealListAddition"></button>
+              </div>
+            </div> */}
           </div>
         )
       }) }

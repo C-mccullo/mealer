@@ -1,2 +1,4 @@
 {
+  "gitlens.blame.line.enabled": false,
+  "gitlens.codeLens.enabled": false
 }

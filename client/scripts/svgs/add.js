@@ -9,4 +9,4 @@ const additionSVG = (props) => {
   )
 }
 
-export default additionSVg;
+export default additionSVG;

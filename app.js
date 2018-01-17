@@ -11,6 +11,8 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const router = require("./routes/index");
 
+// ErrorHandlers
+const errorHandlers = require("./handlers/errorHandlers");
 // Controllers
 const userController = require("./controllers/userController");
 const ingredientController = require("./controllers/ingredientController");
@@ -59,6 +61,11 @@ app.use('/', router);
 app.get('*', function(req, res, next) {
   res.sendFile(path.join(__dirname,'index.html'));
 });
+
+if (app.get('env') === 'development') {
+  /* Development Error Handler - Prints stack trace */
+  app.use(errorHandlers.developmentErrors);
+}
 
 // Start your server, and listen on port 8080.
 app.listen(process.env.PORT, function() {

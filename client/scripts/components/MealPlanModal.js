@@ -34,7 +34,7 @@ const MealPlanModal = (props) => {
       {
         isModalOpen ? (
           <div className="modal-container">
-            <div className="modal-backDrop" onClick={props.closeModal}></div>
+            <div className="paleBackground-wrapper" onClick={props.closeModal}></div>
             <div className="modal">
               <div className="modal-close" onClick={props.closeModal}>X</div>
               <header className="modal-header">

@@ -75,7 +75,7 @@ class MealPlanForm extends Component {
     const currentPlan = this.props.mealPlan[day]
     // maybe take the "meal plan" props and populate the recipeArray with the corresponding meals from that day that day has meals.
   }
-
+  // SUBMITS THE MEAL PLAN FOR CERTAIN DAY TO BACKEND
   submitMeal(e) {
     e.preventDefault();
     const day = this.state.currentSelectValue;
