@@ -337,7 +337,7 @@ class Main extends Component {
               fetchMealPlan={ this.fetchMealPlan } postMealPlan={ this.postMealPlan }
               isLoggedIn={ this.state.loggedIn } 
             />
-            <Redirect from='*' to='/' />
+            <Redirect from='/*' to='/' />
           </Switch>
         </div>
         <Footer/>

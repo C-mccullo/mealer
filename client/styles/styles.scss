@@ -19,6 +19,7 @@
 @import './partials/inventory';
 @import './partials/form';
 @import './partials/modal';
+@import './partials/mealPlan';
 @import 'datepicker';
 
 main#app {
@@ -231,42 +232,6 @@ span.deleteItem {
   padding: 2px 5px;
   border: 1px solid $med-background;
   border-radius: 3px;
-}
-
-// MEAL PLAN LIST
-.mealPlanList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.mealPlanDay {
-  @extend .inventoryItem;
-  h2 {
-    text-transform: capitalize;
-    background-color: rgba(13, 17, 22, 0.05);
-    padding: 10px;
-  }
-}
-
-div.mealListAddition-wrapper {
-  position: relative;
-}
-
-button.mealListAddition {
-  position: absolute;
-  right: 5px;
-  top: -20px;
-  background-color: transparent;
-  border: none;
-  height: 40px;
-  width: 40px;
-  background-image: url("/add.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  float: right;
-
 }
 
 // HOME VIEW

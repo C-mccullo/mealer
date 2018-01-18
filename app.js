@@ -23,7 +23,13 @@ const mealPlanController = require("./controllers/mealPlanController");
 // Models
 const User = require("./models/UserModel");
 
-mongoose.connect(process.env.DATABASE, {
+if (process.NODE_ENV === "production") {
+  mongoose.connect(process.env.DATABASE, {
+    useMongoClient: true,
+  });
+}
+
+mongoose.connect(process.env.LOCAL, {
   useMongoClient: true,
 });
 

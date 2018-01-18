@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MealPlanList = (props) => {
   const mealPlan = props.mealPlan
@@ -16,11 +17,12 @@ const MealPlanList = (props) => {
               }) 
               }
             </ul>
-            {/* <div>
-              <div className="mealListAddition-wrapper clearfix">
+            <div className="mealPlanList-linkWrapper">
+              <Link className="addFormLink-mealPlanList" to={`/mealPlanner/${keyName}`}>Add Recipes</Link>
+              {/* <div className="mealListAddition-wrapper clearfix">
                 <button className="mealListAddition"></button>
-              </div>
-            </div> */}
+              </div> */}
+            </div>
           </div>
         )
       }) }

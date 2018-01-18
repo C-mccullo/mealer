@@ -580,7 +580,7 @@ mark.rbt-highlight-text {
       -ms-flex-pack: center;
           justify-content: center; }
 
-.inventoryItem, .recipe, .mealPlanDay {
+.inventoryItem, .recipe {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -594,7 +594,7 @@ mark.rbt-highlight-text {
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23); }
   @media (max-width: 580px) {
-    .inventoryItem, .recipe, .mealPlanDay {
+    .inventoryItem, .recipe {
       width: 100%;
       max-width: 400px; } }
 
@@ -639,7 +639,7 @@ mark.rbt-highlight-text {
   margin-bottom: 5px;
   font-size: 14px; }
 
-a.addFormLink {
+a.addFormLink, a.addFormLink-mealPlanList {
   position: relative;
   color: #E43F25;
   font-family: 'Lobster', cursive;
@@ -648,7 +648,7 @@ a.addFormLink {
   font-size: 26px;
   margin-top: 15px;
   display: block; }
-  a.addFormLink::before {
+  a.addFormLink::before, a.addFormLink-mealPlanList::before {
     content: "";
     position: absolute;
     background: url("/add.svg");
@@ -748,6 +748,53 @@ form.form {
   right: 10px;
   top: 10px;
   color: red; }
+
+.mealPlanList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.mealPlanDay {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  position: relative;
+  width: 250px;
+  max-width: 280px;
+  border-radius: 2px;
+  background-color: #FBF9F7;
+  padding: 15px 10px 25px;
+  margin: 10px 10px;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23); }
+  .mealPlanDay h2 {
+    text-transform: capitalize;
+    background-color: rgba(13, 17, 22, 0.05);
+    padding: 10px; }
+  .mealPlanDay ul {
+    padding-bottom: 10px; }
+  @media (max-width: 580px) {
+    .mealPlanDay {
+      width: 100%;
+      max-width: 400px; } }
+
+div.mealPlanList-linkWrapper {
+  position: absolute;
+  bottom: 10px; }
+
+a.addFormLink-mealPlanList {
+  font-size: 16px;
+  padding-left: 30px;
+  margin-top: 0px; }
+  a.addFormLink-mealPlanList::before {
+    left: 5px;
+    height: 20px;
+    width: 20px; }
 
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,
 .react-datepicker__month-read-view--down-arrow {
@@ -1329,38 +1376,6 @@ span.deleteItem {
   padding: 2px 5px;
   border: 1px solid #EFEDEB;
   border-radius: 3px; }
-
-.mealPlanList {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center; }
-
-.mealPlanDay h2 {
-  text-transform: capitalize;
-  background-color: rgba(13, 17, 22, 0.05);
-  padding: 10px; }
-
-div.mealListAddition-wrapper {
-  position: relative; }
-
-button.mealListAddition {
-  position: absolute;
-  right: 5px;
-  top: -20px;
-  background-color: transparent;
-  border: none;
-  height: 40px;
-  width: 40px;
-  background-image: url("/add.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  float: right; }
 
 .homeContainer {
   margin: 60px; }
