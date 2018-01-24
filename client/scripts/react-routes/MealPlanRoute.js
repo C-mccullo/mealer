@@ -8,11 +8,6 @@ const MealPlanRoute = (props) => {
     <Route { ...props } render={() => (
       props.isLoggedIn ? (
         <div>
-          <MealPlanForm mealPlan={props.weekMealPlan}
-            recipes={props.recipes}
-            fetchMealPlan={props.fetchMealPlan}
-            postMealPlan={props.postMealPlan}
-          />
           <MealPlanList mealPlan={props.weekMealPlan} />
         </div>
       ) : (

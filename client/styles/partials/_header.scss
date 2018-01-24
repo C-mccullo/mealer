@@ -52,10 +52,8 @@
   }
 
   ul.navBar-list_mobile {
-    // display: none;
     &.open {
       @include sm {
-        // display: block;
         visibility: visible;
         opacity: 1;
         z-index: 5;
@@ -67,7 +65,6 @@
 
   ul.navBar-list_mobile {
     padding-left: 0px;
-    // position: absolute;
     z-index: 5;
     position: absolute;
     top: 100%;
@@ -78,8 +75,6 @@
     visibility: hidden;
     opacity: 0;
     width: 100%;
-    // transform: translateY(-2em);
-    // z-index: -1;
     transition: all 0.3s ease-in-out 0s,
     visibility 0s linear 0.3s,
     z-index 0s linear 0.01s;

@@ -45,3 +45,34 @@ a.addFormLink-mealPlanList {
     width: 20px;
   }
 }
+
+.mealPlan-dropdown {
+  position: relative;
+}
+
+ul.mealPlan-dropdown-list {
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    z-index: 5;
+    transform: translateY(0%);
+    transition-delay: 0s, 0s, 0.3s;
+  }
+}
+
+ul.mealPlan-dropdown-list {
+  padding-left: 0px;
+  z-index: 5;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0px;
+  background: $light-background;
+  visibility: hidden;
+  opacity: 0;
+  width: 100%;
+  transition: all 0.3s ease-in-out 0s,
+  visibility 0s linear 0.3s,
+  z-index 0s linear 0.01s;
+}

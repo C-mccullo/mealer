@@ -16,7 +16,6 @@ class Header extends Component {
   hamburgerToggleMenu(e) {
     e.preventDefault();
     this.setState({ hamburgerOpen: !this.state.hamburgerOpen });
-    console.log("menu state", this.state);
   }
 
   mobileLogout() {
@@ -26,7 +25,6 @@ class Header extends Component {
 
   closeMobileMenu() {
     this.setState({ hamburgerOpen: false });
-    console.log("close the menu")
   }
 
   renderNavBar() {
@@ -107,7 +105,7 @@ class Header extends Component {
                 onClick={() => this.closeMobileMenu()}>Recipes</NavLink>
             </li>
             <li className="navBar-link_mobile">
-              <NavLink to="/recipes" activeClassName="activeLink"
+              <NavLink to="/login" activeClassName="activeLink"
                 onClick={() => this.mobileLogout()}>Log Out</NavLink>
             </li>
           </ul>

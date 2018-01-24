@@ -12,6 +12,7 @@ import AddIngredientFormRoute from "./react-routes/AddIngredientFormRoute";
 import AddRecipeFormRoute from "./react-routes/AddRecipeFormRoute"
 import AddRecipeRoute from "./react-routes/AddRecipeRoute";
 import MealPlanRoute from "./react-routes/MealPlanRoute";
+import MealPlanFormRoute from "./react-routes/MealPlanFormRoute";
 
 // Components
 import HeaderWithRouter from "./components/Header";
@@ -93,14 +94,13 @@ class Main extends Component {
           const fetchArray = this.fetchAllUserData(); 
           // fetchArray order: ingredients, fooditems, recipes, mealPlan
           Promise.all(fetchArray.map(fetchRequest => {
-            return fetchRequest.then(res => res.json()).then(json => json);
+            return fetchRequest.then(res => res.json());
           }))
           .then(values => {
             console.log("user data: ", userData)
             this.setState({
               currentUser: userData,
               loggedIn: true,
-              // ingredients: values[0],
               inventory: values[0],
               recipes: values[1],
               weekMealPlan: values[2]
@@ -330,6 +330,12 @@ class Main extends Component {
             <AddRecipeRoute path="/recipes" ingredientList={ this.state.ingredients }
               fetchIngredients={ this.fetchIngredients } fetchRecipes={ this.fetchRecipes } fetchFoods={ this.fetchFoods } recipes={ this.state.recipes } 
               deleteRecipe={ this.deleteRecipe } isLoggedIn={ this.state.loggedIn }
+            />
+
+            <MealPlanFormRoute path="/mealplanner/:day" inventory={this.state.inventory}
+              recipes={this.state.recipes} weekMealPlan={this.state.weekMealPlan}
+              fetchMealPlan={this.fetchMealPlan} postMealPlan={this.postMealPlan}
+              isLoggedIn={this.state.loggedIn}
             />
 
             <MealPlanRoute path="/mealplanner" inventory={this.state.inventory} 

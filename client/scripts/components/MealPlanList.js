@@ -11,9 +11,11 @@ const MealPlanList = (props) => {
             <h2>{keyName}</h2>
             <ul>
               { mealPlan[keyName].map((meal) => {
-                return (
-                  <li key={`${keyName}-${index}-${meal._id}`}>{meal.name}</li>
-                )
+                if (meal) {
+                  return (
+                    <li key={`${keyName}-${index}-${meal._id}`}>{meal.name}</li>
+                  )
+                }
               }) 
               }
             </ul>

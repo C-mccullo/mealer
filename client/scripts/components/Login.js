@@ -4,7 +4,6 @@ class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // name: "",
       email: "",
       password: "",
     }
@@ -19,7 +18,6 @@ class LoginModal extends Component {
   }
 
   handleChange(e) {
-    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });

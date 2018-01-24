@@ -12,7 +12,7 @@ ul.dropdown-menu, ul.rbt-menu, ul.dropdown-menu-justify {
   li {
     padding: 0px;
     &:nth-of-type(even) {
-      background-color: $med-dark;
+      background-color: $light-background;
     }
     &:hover {
       background: darken($tertiary-light, 0%);
