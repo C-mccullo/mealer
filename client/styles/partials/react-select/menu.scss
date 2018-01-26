@@ -13,7 +13,6 @@
 	@include border-bottom-radius( $select-input-border-radius );
 	background-color: $select-input-bg;
 	border: 1px solid $select-input-border-color;
-	border-top-color: mix($select-input-bg, $select-input-border-color, 50%);
 	box-shadow: $select-menu-box-shadow;
 	box-sizing: border-box;
 	margin-top: -1px;
@@ -45,8 +44,12 @@
 	display: block;
 	padding: $select-padding-vertical $select-padding-horizontal;
 
-	&:last-child {
-		@include border-bottom-radius( $select-input-border-radius );
+	&:nth-of-type(even) {
+		background-color: $select-input-bg;
+	}
+
+	&:hover {
+		background: darken($tertiary-light, 0%);
 	}
 
 	&.is-selected {
@@ -65,7 +68,6 @@
 	}
 
 }
-
 
 // no results
 

@@ -8,12 +8,15 @@ const MealPlanFormRoute = (props) => {
     <Route { ...props } render={() => (
       props.isLoggedIn ? (
         <div>
-          <MealPlanForm day={props.computedMatch.params.day} 
-            mealPlan={props.weekMealPlan}
-            recipes={props.recipes}
-            prevRecipes={props.weekMealPlan[props.computedMatch.params.day]}
-            fetchMealPlan={props.fetchMealPlan}
-            postMealPlan={props.postMealPlan} />
+          <div className="paleBackground-wrapper">
+            <MealPlanForm day={props.computedMatch.params.day}
+              mealPlan={props.weekMealPlan}
+              recipes={props.recipes}
+              prevRecipes={props.weekMealPlan[props.computedMatch.params.day]}
+              fetchMealPlan={props.fetchMealPlan}
+              postMealPlan={props.postMealPlan} />
+          </div>
+          <MealPlanList mealPlan={props.weekMealPlan} />
         </div>
       ) : (
           <Redirect to={{ pathname: '/login' }} />

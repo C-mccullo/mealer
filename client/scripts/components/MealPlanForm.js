@@ -36,6 +36,24 @@ class MealPlanForm extends Component {
     this.setState({ recipeArray, allUserRecipes });
   }
 
+  // componentWillReceiveProps() {
+  //   const allUserRecipes = this.props.recipes.map(userRecipe => {
+  //     return {
+  //       label: userRecipe.name,
+  //       value: userRecipe
+  //     }
+  //   });
+
+  //   const recipeArray = this.props.prevRecipes.map(recipe => {
+  //     return {
+  //       label: recipe.name,
+  //       value: recipe
+  //     }
+  //   });
+  //   console.log("in componentWillReceiveProps", recipeArray, allUserRecipes);
+  //   this.setState({ recipeArray, allUserRecipes });
+  // }
+
   updateRecipeArray(selection) {
     console.log("recipe array from multi-select", selection);
     this.setState({ recipeArray: selection });
@@ -100,7 +118,7 @@ class MealPlanForm extends Component {
       });
       console.log("formattedArray", formattedArray);
       this.props.postMealPlan(day, formattedArray);
-      this.resetForm();
+      // this.resetForm();
     } // TODO: ensure you handle error to tell user to update fields
   }
 
@@ -116,6 +134,7 @@ class MealPlanForm extends Component {
               multi={ true }
               placeholder="Add premade recipes to meal plan" 
               clearable={ false }
+              closeOnSelect={ false }
               onChange={ this.updateRecipeArray }
               value={ this.state.recipeArray }
               options={ this.state.allUserRecipes }

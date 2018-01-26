@@ -27,11 +27,9 @@
 	// Items
 	.Select-value {
 		background-color: $select-item-bg;
-		border-radius: $select-item-border-radius;
 		border: 1px solid $select-item-border-color;
 		color: $select-item-color;
 		display: inline-block;
-		font-size: $select-item-font-size;
 		margin-left: $select-item-gutter;
 		margin-top: $select-item-gutter;
 		vertical-align: top;

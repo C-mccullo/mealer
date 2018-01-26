@@ -1276,23 +1276,23 @@ ul.mealPlan-dropdown-list {
   .Select.is-open > .Select-control {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    background: #fff;
-    border-color: #b3b3b3 #ccc #d9d9d9; }
+    background: #FBF9F7;
+    border-color: black #0D1116 #161d26; }
     .Select.is-open > .Select-control .Select-arrow {
-      top: -2px;
-      border-color: transparent transparent #999;
+      top: -4px;
+      border-color: transparent transparent #656c7a;
       border-width: 0 5px 5px; }
   .Select.is-focused > .Select-control {
-    background: #fff; }
+    background: #FBF9F7; }
   .Select.is-focused:not(.is-open) > .Select-control {
-    border-color: #08c #0099e6 #0099e6;
-    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 5px -1px fade(#08c, 50%);
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 5px -1px fade(#08c, 50%); }
+    border-color: #0071BC #0080d6 #0080d6;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 5px -1px fade(#0071BC, 50%);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 5px -1px fade(#0071BC, 50%); }
   .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
     padding-right: 42px; }
   .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label,
   .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
-    color: #333; }
+    color: #0D1116; }
   .Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label,
   .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label {
     cursor: pointer;
@@ -1300,27 +1300,27 @@ ul.mealPlan-dropdown-list {
     .Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label:hover, .Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label:focus,
     .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label:hover,
     .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label:focus {
-      color: #08c;
+      color: #0071BC;
       outline: none;
       text-decoration: underline; }
     .Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label:focus,
     .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label:focus {
-      background: #fff; }
+      background: #FBF9F7; }
   .Select.has-value.is-pseudo-focused .Select-input {
     opacity: 0; }
   .Select.is-open .Select-arrow,
   .Select .Select-arrow-zone:hover > .Select-arrow {
-    border-top-color: #666; }
+    border-top-color: #0D1116; }
   .Select.Select--rtl {
     direction: rtl;
     text-align: right; }
 
 .Select-control {
-  background-color: #fff;
-  border-color: #d9d9d9 #ccc #b3b3b3;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  color: #333;
+  background-color: #FBF9F7;
+  border-color: #161d26 #0D1116 black;
+  border-radius: 0px;
+  border: 1px solid #0D1116;
+  color: #0D1116;
   cursor: default;
   display: table;
   border-spacing: 0;
@@ -1335,7 +1335,7 @@ ul.mealPlan-dropdown-list {
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06); }
   .Select-control .Select-input:focus {
     outline: none;
-    background: #fff; }
+    background: #FBF9F7; }
 
 .Select-placeholder,
 .Select--single > .Select-control .Select-value {
@@ -1397,8 +1397,8 @@ ul.mealPlan-dropdown-list {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 50%;
-  border: 2px solid #ccc;
-  border-right-color: #333;
+  border: 2px solid #0D1116;
+  border-right-color: #0D1116;
   display: inline-block;
   position: relative;
   vertical-align: middle; }
@@ -1450,7 +1450,7 @@ ul.mealPlan-dropdown-list {
     padding-left: 5px; }
 
 .Select-arrow {
-  border-color: #999 transparent transparent;
+  border-color: #656c7a transparent transparent;
   border-style: solid;
   border-width: 5px 5px 2.5px;
   display: inline-block;
@@ -1471,11 +1471,10 @@ ul.mealPlan-dropdown-list {
     opacity: 1; } }
 
 .Select-menu-outer {
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-top-color: #e6e6e6;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background-color: #FBF9F7;
+  border: 1px solid #0D1116;
   -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
           box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   -webkit-box-sizing: border-box;
@@ -1496,28 +1495,29 @@ ul.mealPlan-dropdown-list {
 .Select-option {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: #fff;
-  color: #666666;
+  background-color: #edeef1;
+  color: #334356;
   cursor: pointer;
   display: block;
   padding: 8px 10px; }
-  .Select-option:last-child {
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px; }
+  .Select-option:nth-of-type(even) {
+    background-color: #FBF9F7; }
+  .Select-option:hover {
+    background: #77c5f7; }
   .Select-option.is-selected {
     background-color: #f5faff;
-    color: #333; }
+    color: #0D1116; }
   .Select-option.is-focused {
-    background-color: #f2f9fc;
-    color: #333; }
+    background-color: #77C5F7;
+    color: #0D1116; }
   .Select-option.is-disabled {
-    color: #cccccc;
+    color: #95a8c0;
     cursor: default; }
 
 .Select-noresults {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #999999;
+  color: #597496;
   cursor: default;
   display: block;
   padding: 8px 10px; }
@@ -1535,12 +1535,10 @@ ul.mealPlan-dropdown-list {
   margin-left: 5px; }
 
 .Select--multi .Select-value {
-  background-color: #f2f9fc;
-  border-radius: 2px;
-  border: 1px solid #c9e6f2;
-  color: #08c;
+  background-color: #cce2f1;
+  border: 1px solid #0071BC;
+  color: #0071BC;
   display: inline-block;
-  font-size: 0.9em;
   margin-left: 5px;
   margin-top: 5px;
   vertical-align: top; }
@@ -1557,7 +1555,7 @@ ul.mealPlan-dropdown-list {
   padding: 2px 5px; }
 
 .Select--multi a.Select-value-label {
-  color: #08c;
+  color: #0071BC;
   cursor: pointer;
   text-decoration: none; }
   .Select--multi a.Select-value-label:hover {
@@ -1567,13 +1565,13 @@ ul.mealPlan-dropdown-list {
   cursor: pointer;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 2px;
-  border-right: 1px solid #c9e6f2;
+  border-right: 1px solid #0071BC;
   padding: 1px 5px 3px; }
   .Select--multi .Select-value-icon:hover, .Select--multi .Select-value-icon:focus {
-    background-color: #ddeff7;
-    color: #0077b3; }
+    background-color: #b8d7ec;
+    color: #0062a3; }
   .Select--multi .Select-value-icon:active {
-    background-color: #c9e6f2; }
+    background-color: #0071BC; }
 
 .Select--multi.Select--rtl .Select-value {
   margin-left: 0;
@@ -1581,7 +1579,7 @@ ul.mealPlan-dropdown-list {
 
 .Select--multi.Select--rtl .Select-value-icon {
   border-right: none;
-  border-left: 1px solid #c9e6f2; }
+  border-left: 1px solid #0071BC; }
 
 .Select--multi.is-disabled .Select-value {
   background-color: #fcfcfc;
